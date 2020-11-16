@@ -1,0 +1,78 @@
+class F(object):
+    def __init__(self, func):
+      self.func = func
+      return
+
+    def __call__(self, *args, **kw):
+       x = args
+       y = kw
+       #print ("  args: %r" % (args,))
+       #print ("  kw: %r" % kw)
+       return self.func(*args, **kw)
+
+
+
+class NickModul():
+    def __init__(self):
+      return
+
+    def __getattribute__(self, name):
+       #print(name)
+       attr = object.__getattribute__(self, name)
+       #print(attr)
+       if callable(attr):
+         # Return a callable object that can examine, and even
+         # modify the arguments prior to calling the method.
+         return F(attr)
+       # Return the reference to any non-callable attribute.
+       return attr
+
+    def warningTest(self, *a, **kw):
+        print("hello from m!")
+        return
+
+    def getLogger(self, name):
+        method = 'getLogger'
+        requests.post(BASE, json={'method': method, 'arguments': name}, verify=True)
+        #return_value = requests.get(BASE, json={'method': method, 'arguments': name}, verify=True)
+        model = pickle.load(requests.get(BASE, json={'method': method, 'arguments': name}, verify=True))
+        return model
+
+    def addLevelName(self, level, levelname):
+        method = 'addLevelName'
+        args = [level, levelname]
+        requests.post(BASE, json={'method': method,'arguments': args}, verify=True)
+
+    def DEBUG(self):
+        method = 'DEBUG'
+        requests.post(BASE, json={'method': method}, verify=True)
+        #int = requests.get(BASE, json={'method': method}, verify=True)
+        model = pickle.loads(requests.get(BASE, json={'method': method}, verify=True, encoding="utf-8"), )
+        print(model)
+        return model
+
+    def basicConfig(self, filename, *args, **kwargs):
+        pass
+
+    def disable(self):
+        pass
+
+    def debug(self):
+        pass
+    def info(self):
+        pass
+
+    def warning(self, message):
+        method = 'warning'
+        requests.post(BASE, verify=True, json={'method':method, 'arguments':message})
+
+    def error(self, message):
+        method = 'error'
+        requests.post(BASE, verify=True, json={'method': method, 'arguments': message})
+        
+    def critical(self):
+        pass
+    def log(self):
+        pass
+    def exception(self):
+        pass
