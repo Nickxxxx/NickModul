@@ -3,16 +3,21 @@ from requests.api import request
 import pickle
 
 BASE = 'http://127.0.0.1:5000'
-#test = requests.post(BASE, verify=True)
 
-class NickModul:
+class SVLog:
+    CRITICAL = 50
+    FATAL = CRITICAL
+    ERROR = 40
+    WARNING = 30
+    WARN = WARNING
+    INFO = 20
+    DEBUG = 10
+    NOTSET = 0
 
     def getLogger(self, name):
         method = 'getLogger'
         requests.post(BASE, json={'method': method, 'arguments': name}, verify=True)
-        #return_value = requests.get(BASE, json={'method': method, 'arguments': name}, verify=True)
-        model = pickle.load(requests.get(BASE, json={'method': method, 'arguments': name}, verify=True))
-        return model
+        return SVLog()
 
     def addLevelName(self, level, levelname):
         method = 'addLevelName'
@@ -51,18 +56,16 @@ class NickModul:
         method = 'log'
         requests.post(BASE, verify=True, json={'method': method, 'arguments': [level, message]})
 
-    def exception(self):
-        pass
+    def exception(self, message):
+        method = 'exception'
+        requests.post(BASE, json={'method': method, 'arguments': message}, verify=True)
 
     def DEBUG(self):
         method = 'DEBUG'
         print("Hello")
         requests.post(BASE, json={'method': method}, verify=True)
-        #int = requests.get(BASE, json={'method': method}, verify=True)
-        model = pickle.loads(requests.get(
-            BASE, json={'method': method}, verify=True, encoding="utf-8"), )
-        print(model)
-        return model
+        int = 10
+        return int
 
     def shutdown(self):
         method = 'shutdown'
@@ -94,29 +97,18 @@ class NickModul:
         arguments = [args, kwargs]
         requests.post(BASE, json={'method': method,'arguments': arguments}, verify=True)
 
+    def getLoggerClass(self):
+        method = 'getLoggerClass'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def LoggerAdapter(self, logger, dict):
+        method = 'LoggerAdapter'
+        requests.post(BASE, json={'method': method, 'arguments':[logger, dict]}, verify=True)
+
     def test(self):
         pass
 
+class logger:
+    pass
 
-
-
-
-####################################################
-
-NickModul = NickModul()
-
-def main(x, y):
-
-    if y != 0:
-        solution = x/y
-        print(solution)
-    else:
-        NickModul.debug("This is a warning")
-        NickModul.warning("This is a warning")
-        NickModul.error("This is a warning")
-        NickModul.info("This is a warning")
-        print("hello")
-        NickModul.DEBUG
-        NickModul.captureWarnings(True)
-
-main(10, 0)
+NickModul = SVLog()

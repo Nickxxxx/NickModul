@@ -14,101 +14,112 @@ print(dir(logging))
 
 class Logging(Resource):
     def get(self):
+        '''
         #data = request.json['method']
-        y = Nicklogging.data(self)
+        y = LoggingServer.data(self)
         return pickle.dumps(y)
+        '''
+        pass
 
     def post(self):
-        Nicklogging.data(self)
+        LoggingServer.data(self)
 
 
-class Nicklogging:
+class LoggingServer:
     def data(self):
         method = request.json['method']
         print(method)
 
         if method == 'warning':
             message = request.json['arguments']
-            return logging.warning(message)
+            logging.warning(message)
 
         elif method == 'debug':
             message = request.json['arguments']
-            return logging.debug(message)
+            logging.debug(message)
         
         elif method == 'error':
             message = str(request.json['arguments'])
-            return logging.error(message)
+            logging.error(message)
         
         elif method == 'critical':
             message = str(request.json['arguments'])
-            return logging.critical(message)
+            logging.critical(message)
         
         elif method == 'info':
             message = str(request.json['arguments'])
-            return logging.info(message)
+            logging.info(message)
         
         elif method == 'log':
             arguments = request.json['arguments']
             level = arguments[0]
             message = arguments[1]
-            return logging.log(level=level, msg=message)
+            logging.log(level=level, msg=message)
 
         elif method == 'getLevelName':
             level = request.json['arguments']
-            return logging.getLevelName(level)
+            logging.getLevelName(level)
 
         elif method == 'addLevelName':
             level = request.json['arguments'][0]
             levelname = request.json['arguments'][1]
-            return logging.addLevelName(level, levelname)
+            logging.addLevelName(level, levelname)
 
         elif method == 'getLogger':
             name = request.json['arguments']
-            return logging.getLogger(name)
+            logging.getLogger(name)
 
         elif method == 'exception':
             message = request.json['arguments']
-            return logging.exception(message)
+            logging.exception(message)
 
         elif method == 'disable':
             level = request.json['arguments']
-            return logging.disable(level)
+            logging.disable(level)
         
         elif method == 'shutdown':
-            return logging.shutdown()
+            logging.shutdown()
 
         elif method == 'captureWarnings':
             capture = request.json['arguments']
-            return logging.captureWarnings(capture=capture)
+            logging.captureWarnings(capture=capture)
 
         elif method == 'lastResort':
-            return logging.lastResort
+            logging.lastResort
         
         elif method == 'setLogRecordFactory':
             factory = request.json['arguments']
-            return logging.setLogRecordFactory(factory)
+            logging.setLogRecordFactory(factory)
         
         elif method == 'setLoggerClass':
-            return logging.setLoggerClass
+            logging.setLoggerClass
         
         elif method == 'basicConfig':
             kwargs = request.json['arguments']
-            return logging.basicConfig(**kwargs)
+            logging.basicConfig(**kwargs)
         
         elif method == 'makeLogRecord':
             dict = request.json['arguments']
-            return logging.makeLogRecord(dict)
+            logging.makeLogRecord(dict)
         
         elif method == 'getLogRecordFactory':
             args = request.json['arguments'][0]
             kwargs = request.json['arguments'][1]
-            return logging.getLogRecordFactory(*args, **kwargs)
+            logging.getLogRecordFactory(*args, **kwargs)
+
+        elif method == 'getLoggerClass':
+            logging.getLoggerClass()
+
+        elif method == 'LoggerAdapter':
+            logger = request.json['arguments'][0]
+            dict = request.json['arguments'][1]
+            logging.LoggerAdapter(logger, dict)
 
         elif method == 'DEBUG':
             print("hello")
             print(logging.DEBUG)
 
-            return logging.DEBUG
+            logging.DEBUG
 
         else:
             pass
