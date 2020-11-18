@@ -1,4 +1,5 @@
 import logging
+from logging import LoggerAdapter
 from flask_restful import Api, Resource, abort, reqparse, fields, marshal_with
 from flask import Flask, render_template, request, flash, url_for
 import sys
@@ -10,7 +11,6 @@ api = Api(app)
 
 print(dir(logging))
 
-#logging.request(the thing you send)
 
 class Logging(Resource):
     def get(self):
@@ -28,33 +28,50 @@ class Logging(Resource):
 class LoggingServer:
     def data(self):
         method = request.json['method']
-        print(method)
 
+        global h1
         if method == 'warning':
-            message = request.json['arguments']
-            logging.warning(message)
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args = arguments[1]
+            kwargs = arguments[2]
+            logging.warning(message, *args, **kwargs)
 
         elif method == 'debug':
-            message = request.json['arguments']
-            logging.debug(message)
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args = arguments[1]
+            kwargs = arguments[2]
+            logging.debug(message, *args, **kwargs)
         
         elif method == 'error':
-            message = str(request.json['arguments'])
-            logging.error(message)
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args = arguments[1]
+            kwargs = arguments[2]
+            logging.error(message, *args, **kwargs)
         
         elif method == 'critical':
-            message = str(request.json['arguments'])
-            logging.critical(message)
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args = arguments[1]
+            kwargs = arguments[2]
+            logging.critical(message, *args, **kwargs)
         
         elif method == 'info':
-            message = str(request.json['arguments'])
-            logging.info(message)
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args = arguments[1]
+            kwargs = arguments[2]
+            logging.info(message, *args, **kwargs)
         
         elif method == 'log':
             arguments = request.json['arguments']
             level = arguments[0]
             message = arguments[1]
-            logging.log(level=level, msg=message)
+            args = arguments[2]
+            kwargs = arguments[3]
+            logging.log(level, message, *args, **kwargs)
 
         elif method == 'getLevelName':
             level = request.json['arguments']
@@ -65,13 +82,18 @@ class LoggingServer:
             levelname = request.json['arguments'][1]
             logging.addLevelName(level, levelname)
 
+        
         elif method == 'getLogger':
             name = request.json['arguments']
-            logging.getLogger(name)
+            h1 = logging.getLogger(name)
 
         elif method == 'exception':
-            message = request.json['arguments']
-            logging.exception(message)
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args  = arguments[1]
+            exc_info = arguments[2]
+            kwargs = arguments[3]
+            logging.exception(message, *args, exc_info, **kwargs)
 
         elif method == 'disable':
             level = request.json['arguments']
@@ -96,6 +118,7 @@ class LoggingServer:
         
         elif method == 'basicConfig':
             kwargs = request.json['arguments']
+            print(kwargs)
             logging.basicConfig(**kwargs)
         
         elif method == 'makeLogRecord':
@@ -114,19 +137,41 @@ class LoggingServer:
             logger = request.json['arguments'][0]
             dict = request.json['arguments'][1]
             logging.LoggerAdapter(logger, dict)
+        
+        elif method == 'warn':
+            message = request.json['arguments'][0]
+            args = request.json['arguments'][0]
+            logging.warn(msg=message, *args)
 
         elif method == 'DEBUG':
             print("hello")
             print(logging.DEBUG)
 
             logging.DEBUG
+        
+        elif method == 'BASIC_FORMAT':
+            print("hello")
+            logging.BASIC_FORMAT
+
+        elif method == 'LogRecord':
+            arguments = request.json['arguments']
+            logging.LogRecord(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], **(arguments[9]))
+
+        elif method == 'logger.warning':
+            arguments = request.json['arguments']
+            message = arguments[0]
+            args = arguments[1]
+            kwargs = arguments[2]
+            h1.warning(message, *args, **kwargs)
 
         else:
             pass
 
-api.add_resource(Logging, '/')
+class Logger:
+    def warning(self):
+        pass
 
-#logging.data("Hello this is a test")
+api.add_resource(Logging, '/')
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

@@ -1,7 +1,34 @@
 
 import logging
 
-logging.Formatter.formatMessage
+class LogginNick:
+    def data(self, method):
+        method = method
+
+        global h1
+        if method == 'getLogger':
+            name = 'Test'
+            h1 = logging.getLogger(name)
+            print(h1)
+        
+        elif method == 'logger.warning':
+            h1.warning("This is a logging message")
+        
+        elif method == 'logger.debug':
+            h1.debug("This is a debug Log")
+        
+        else:
+            pass
+
+
+LoggingNick = LogginNick()
+print(type(LoggingNick.data('getLogger')))
+#LoggingNick.data('logger.warning')
+
+
+h1 = logging.getLogger("Test")
+h1.warning("This is log test warning")
+
 
 print("------------------------------------------")
 
@@ -13,13 +40,38 @@ class Car:
         y = [args, kwargs]
         print(y)
 
+    def engine(self, Ps):
+        power = Ps
+        return power
+
+    class BMW:
+        def msport(price):
+            print(f"This is a new M-Modell with a price of {price} $")
+
+'''
+
+class Auto(Car):
+    def newengine(self, newPs):
+        x = Car.engine + newPs
+        print(x)
+
+
+
+
 
 car = Car()
-car.Audi(10, 3445, marke="Audi", art="Q3", leistung="180PS")
+car.engine(150)
+
+Auto = Auto()
+Auto.newengine(100)
+
+'''
+
+print("------------------------------------------")
 
 y = (23, 4332)
 z = {'marke': 'BMW', 'art': 'X3', 'leistung': '160PS'}
-car.Audi(*y, **z)
+#car.Audi(*y, **z)
 
 
 print(" heeeeelllllllloooooo  ")
@@ -30,19 +82,7 @@ else:
     print("he")
 
 
-logging.basicConfig(format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S')
-logging.warning('Admin logged out')
-
-
-logger = logging.getLogger('TestingLogger')
-print(type(logger))
-logger.basicConfig(format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S')
-print(type(logger.basicConfig(
-    format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')))
-logger.warning('Admin logged out')
-print(type(logger.warning('Admin logged out')))
-
 print("_______________________________________")
 
-print(logging.Handler())
+logging.Logger.warning("This is a warning")
 

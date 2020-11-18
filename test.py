@@ -7,14 +7,14 @@ def main(x, y):
         solution = x/y
         print(solution)
     else:
-        logger = NickModul.getLogger('logger')
+        logger = NickModul.getLogger("Logger")
+        
+        logger.warning("This is a new logge warning")
+        
 
         print("------------------------------------------")
+        
 
-
-        NickModul.basicConfig(format='%(asctime)s - %(message)s',
-                    datefmt='%d-%b-%y %H:%M:%S')
-        NickModul.warning('Admin logged out')
 
 
 main(10, 0)
