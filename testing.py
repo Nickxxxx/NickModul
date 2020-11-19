@@ -1,6 +1,12 @@
 
 import logging
 
+
+logging.Template('template')
+
+
+print('_______________________________________________________---')
+
 class LogginNick:
     def data(self, method):
         method = method

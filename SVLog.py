@@ -19,6 +19,45 @@ class SVLog:
         requests.post(BASE, json={'method': method, 'arguments': name}, verify=True)
         return logger()
 
+    def Handler(self, level = NOTSET):
+        method = 'Handler'
+        requests.post(BASE, json={'method': method,'arguments': level}, verify=True)
+        return Handler()
+
+    def Logger(self, name, level=NOTSET):
+        method = 'Logger'
+        requests.post(BASE, json={'method': method,'arguments': [name, level]}, verify=True)
+        return logger()
+
+    def FileHandler(self, filename, mode='a', encoding=None, delay=False):
+        method = 'FileHandler'
+        requests.post(BASE, json={'method': method,'arguments':[filename, mode, encoding, delay]}, verify=True)
+        return FileHandler()
+
+    def StreamHandler(self, stream=None):
+        method = 'StreamHandler'
+        requests.post(BASE, json={'method': method, 'arguments': stream}, verify=True)
+        return StreamHandler()
+
+    def Formatter(self, fmt=None, datefmt=None, style='%', validate=True):
+        method = 'Formatter'
+        requests.post(BASE, json={'method': method, 'arguments': [fmt, datefmt, style, validate]}, verify=True)
+        return Formatter()
+
+    def Filter(self, name):
+        method = 'Filter'
+        requests.post(BASE, json={'method': method,'arguments': name}, verify=True)
+        return Filter()
+
+    def Filterer(self):
+        method = 'Filterer'
+        requests.post(BASE, json={'method': method}, verify=True)
+        return Filterer()
+
+    def Template(self, template:str):
+        method = 'Template'
+        requests.post(BASE, json={'method': method, 'arguments': template}, verify=True)
+
     def addLevelName(self, level, levelname):
         method = 'addLevelName'
         args = [level, levelname]
@@ -34,27 +73,27 @@ class SVLog:
 
     def debug(self, message, *args, **kwargs):
         method = 'debug'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
 
     def info(self, message, *args, **kwargs):
         method = 'info'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify = True)
 
     def warning(self, message, *args, **kwargs):
         method = 'warning'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
 
     def error(self, message, *args, **kwargs):
         method = 'error'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
         
     def critical(self, message, *args, **kwargs):
         method = 'critical'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
         
     def log(self, level, message, *args, **kwargs):
         method = 'log'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [level, message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [level, message, args, kwargs]}, verify=True)
 
     def exception(self, message, *args, exc_info=True, **kwargs):
         method = 'exception'
@@ -104,6 +143,7 @@ class SVLog:
     def LoggerAdapter(self, logger, dict):
         method = 'LoggerAdapter'
         requests.post(BASE, json={'method': method, 'arguments':[logger, dict]}, verify=True)
+        return LoggerAdapter()
 
     def LogRecord(self, name: str, level: int, pathname, lineno, msg, args, exc_info, func=None, sinfo=None, **kwargs):
         method = 'LogRecord'
@@ -120,99 +160,227 @@ class SVLog:
     def FileHandler(fname, *args, **kwargs):
         method = 'BASIC_FORMAT'
         request.post(BASE, json={'method': method, 'arguments': [fname, args, kwargs]}, verify=True)
-
-    def Formatter(self):
+    
+    def raiseExceptions(self):
         pass
 
     def test(self):
         pass
 
-    class Logger:
 
-        def propagate():
-            pass
+class Filterer(object):
+    def addFilter(self, filter):
+        method = 'addFilter'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def setLevel():
-            pass
+    def removeFilter(self, filter):
+        method = 'removeFilter'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def isEnabledFor():
-            pass
+    def filter(self, record):
+        method = 'filter'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def getEffectiveLevel():
-            pass
 
-        def getChild():
-            pass
+class Handler(Filterer):
+    def get_name(self):
+        method = 'handler.get_name'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def debug(message, *args, **kwargs):
-            method = 'debug'
-            requests.post(BASE, verify=True, json={
-                        'method': method, 'arguments': [message, args, kwargs]})
+    def set_name(self, name):
+        method = 'Handler.set_name'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def info(message, *args, **kwargs):
-            method = 'info'
-            requests.post(BASE, verify=True, json={
-                        'method': method, 'arguments': [message, args, kwargs]})
+    def createLock(self):
+        method = 'Handler.createLock'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def warning(message, *args, **kwargs):
-            method = 'warning'
-            requests.post(BASE, verify=True, json={
-                        'method': method, 'arguments': [message, args, kwargs]})
+    def acquire(self):
+        method = 'Handler.acquire'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def error(message, *args, **kwargs):
-            method = 'error'
-            requests.post(BASE, verify=True, json={
-                        'method': method, 'arguments': [message, args, kwargs]})
+    def release(self):
+        method = 'Handler.release'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def critical(message, *args, **kwargs):
-            method = 'critical'
-            requests.post(BASE, verify=True, json={
-                        'method': method, 'arguments': [message, args, kwargs]})
+    def setLevel(self, level):
+        method = 'Handler.setLevel'
+        request.post(BASE, json={'method': method, 'arguments': level}, verify=True)
 
-        def log(level, message, *args, **kwargs):
-            method = 'log'
-            requests.post(BASE, verify=True, json={
-                        'method': method, 'arguments': [level, message, args, kwargs]})
+    def format(self, record):
+        method = 'Handler.format'
+        request.post(BASE, json={'method': method,'arguments': record}, verify=True)
 
-        def exception(message, *args, exc_info=True, **kwargs):
-            method = 'exception'
-            requests.post(BASE, json={'method': method, 'arguments': [
-                        message, args, exc_info, kwargs]}, verify=True)
+    def emit(self, record):
+        method = 'Handler.emit'
+        request.post(BASE, json={'method': method,'arguments': record}, verify=True)
 
-        def addFilter(self):
-            pass
+    def handle(self, record):
+        method = 'Handler.handle'
+        request.post(BASE, json={'method': method, 'arguments': record}, verify=True)
 
-        def removeFilter(self):
-            pass
+    def setFormatter(self, fmt):
+        method = 'Handler.setFormatter'
+        request.post(BASE, json={'method': method,'arguments': fmt}, verify=True)
 
-        def filter(self):
-            pass
+    def flush(self):
+        method = 'Handler.flush'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def addHandler(self):
-            pass
+    def close(self):
+        method = 'Handler.close'
+        request.post(BASE, json={'method': method}, verify=True)
 
-        def removeHandler(self):
-            pass
+    def handleError(self, record):
+        method = 'Handler.handleError'
+        request.post(BASE, json={'method': method, 'arguments': record}, verify=True)
 
-        def findCaller(self):
-            pass
 
-        def handle():
-            pass
-
-        def makeRecord():
-            pass
-
-        def hasHandlers():
-            pass
-
-    class Handler:
-        pass
-
-class logger(object):
+class logger(Filterer):
     def warning(self, message, *args, **kwargs):
         method = 'logger.warning'
-        requests.post(BASE, verify=True, json={'method': method, 'arguments': [message, args, kwargs]})
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
+
+    def debug(self, message, *args, **kwargs):
+        method = 'logger.debug'
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
+
+    def info(self, message, *args, **kwargs):
+        method = 'logger.info'
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
+
+    def error(self, message, *args, **kwargs):
+        method = 'logger.error'
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
+
+    def critical(self, message, *args, **kwargs):
+        method = 'logger.critical'
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
+
+    def log(self, level, message, *args, **kwargs):
+        method = 'logger.log'
+        requests.post(BASE, json={'method': method, 'arguments': [level, message, args, kwargs]}, verify=True)
+    
+    def setLevel(self, level):
+        method = 'logger.setLevel'
+        requests.post(BASE, json={'method': method, 'arguments': level}, verify=True)
+    
+    def warn(self, msg, *args, **kwargs):
+        method = 'logger.warn'
+        requests.post(BASE, json={'method': method, 'arguments': [msg, args, kwargs]}, verify=True)
+    
+    def propagate(self):
+        method = 'propagate'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def isEnabledFor(self, level):
+        method = 'logger.isEnabledFor'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def getEffectiveLevel(self):
+        method = 'logger.getEffectiveLevel'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def getChild(self, suffix):
+        method = 'logger.getChild'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def exception(message, *args, exc_info=True, **kwargs):
+        method = 'logger.exception'
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, exc_info, kwargs]}, verify=True)
+
+    def callHandlers(self, record):
+        method = 'logger.callHandlers'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def addHandler(self, hdlr):
+        method = 'logger.addHandler'
+        requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
+    def removeHandler(self, hdlr):
+        method = 'logger.removeHandler'
+        requests.post(BASE, json={'method': method,'arguments': hdlr}, verify=True)
+
+    def findCaller(self, stack_info=False, stacklevel=1):
+        method = 'logger.findCaller'
+        requests.post(BASE, json={'method': method, 'arguments': [stack_info, stacklevel]}, verify=True)
+
+    def handle(self, record):
+        method = 'logger.handle'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+
+    def makeRecord(self, name, level, fn, lno, msg, args, exc_info,func=None, extra=None, sinfo=None):
+        method = 'logger.makeRecord'
+        requests.post(BASE, json={'method': method, 'arguments': [name, level, fn, lno, msg, args, exc_info, func, extra, sinfo]}, verify=True)
+
+    def hasHandlers(self):
+        method = 'logger.hasHandlers'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+
+class StreamHandler(Handler):
+    def flush(self):
+        method = 'StreamHandler.flush'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def emit(self, record):
+        method = 'StreamHandler.emit'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+
+    def setStream(self, stream):
+        method = 'StreamHandler.setStream'
+        requests.post(BASE, json={'method': method, 'arguments': stream}, verify=True)
+
+
+class FileHandler(StreamHandler):
+    def close(self):
+        method = 'FileHandler.close'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def emit(self, record):
+        method = 'FileHandler.emit'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+class Filter(object):
+    def filter(self, record):
+        method = 'Filter.filter'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+
+class LogRecord(object):
+    def getMessage(self):
+        method = 'LogRecord.getMessage'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+class LoggerAdapter(object):
+    def process(self, msg, **kwargs):
+        method = 'LoggerAdapter.process'
+        requests.post(BASE, json={'method': method, 'arguments': [msg, kwargs]}, verify=True)
+
+class Formatter(object):
+    def formatTime(self, record, datefmt=None):
+        method = 'Formatter.formatTime'
+        requests.post(BASE, json={'method': method, 'arguments': [record, datefmt]}, verify=True)
+
+    def formatException(self, exc_info):
+        method = 'Formatter.formatException'
+        requests.post(BASE, json={'method': method, 'arguments': exc_info}, verify=True)
+
+    def usesTime(self):
+        method = 'Formatter.usesTime'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def formatMessage(self, record):
+        method = 'Formatter.formatMessage'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+
+    def formatStack(self, stack_info):
+        method = 'Formatter.formatStack'
+        requests.post(BASE, json={'method': method, 'arguments': stack_info}, verify=True)
+
+    def format(self, record):
+        method = 'Formatter.format'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
 
 NickModul = SVLog()
 

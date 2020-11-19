@@ -11,16 +11,7 @@ api = Api(app)
 
 print(dir(logging))
 
-
 class Logging(Resource):
-    def get(self):
-        '''
-        #data = request.json['method']
-        y = LoggingServer.data(self)
-        return pickle.dumps(y)
-        '''
-        pass
-
     def post(self):
         LoggingServer.data(self)
 
