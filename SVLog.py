@@ -100,6 +100,7 @@ class SVLog:
         requests.post(BASE, json={'method': method, 'arguments': [message, args, exc_info, kwargs]}, verify=True)
 
     def DEBUG(self):
+        #problem_kanidat
         method = 'DEBUG'
         print("Hello")
         requests.post(BASE, json={'method': method}, verify=True)
@@ -157,10 +158,12 @@ class SVLog:
         method = 'BASIC_FORMAT'
         request.post(BASE, json={'method': method}, verify=True)
 
+    '''
     def FileHandler(fname, *args, **kwargs):
         method = 'BASIC_FORMAT'
         request.post(BASE, json={'method': method, 'arguments': [fname, args, kwargs]}, verify=True)
-    
+    '''
+
     def raiseExceptions(self):
         pass
 
@@ -170,15 +173,15 @@ class SVLog:
 
 class Filterer(object):
     def addFilter(self, filter):
-        method = 'addFilter'
+        method = 'Filterer.addFilter'
         request.post(BASE, json={'method': method}, verify=True)
 
     def removeFilter(self, filter):
-        method = 'removeFilter'
+        method = 'Filterer.removeFilter'
         request.post(BASE, json={'method': method}, verify=True)
 
     def filter(self, record):
-        method = 'filter'
+        method = 'Filterer.filter'
         request.post(BASE, json={'method': method}, verify=True)
 
 
