@@ -2,8 +2,17 @@
 import logging
 
 
-logging.Template('template')
-
+print("test1")
+print("-----")
+print("test2")
+print("-----")
+h1_getLogger = logging.getLogger('Test')
+print("test3")
+print(h1_getLogger)
+print("-----")
+print("test4")
+print(type(h1_getLogger))
+print("-----")
 
 print('_______________________________________________________---')
 

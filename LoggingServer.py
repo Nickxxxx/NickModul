@@ -7,12 +7,22 @@ api = Api(app)
 
 print(dir(logging))
 
+h1_getLogger = None
+h2_handler = None
+h4_FileHandler = None
+h5_StreamHandler = None
+h6_Formatter = None
+h7_Filter = None
+h8_Filterer = None
+h9_LoggerAdapter = None
+
 class Logging(Resource):
     def post(self):
         LoggingServer.data(self)
 
 
 class LoggingServer:
+
     def data(self):
         method = request.json['method']
 
@@ -27,6 +37,21 @@ class LoggingServer:
         if method == 'getLogger':
             name = request.json['arguments']
             h1_getLogger = logging.getLogger(name)
+            '''
+            print("test1")
+            print(h1_getLogger)
+            print("-----")
+            print("test2")
+            print(type(h1_getLogger))
+            print("-----")
+            h1_getLogger = logging.getLogger(name)
+            print("test3")
+            print(h1_getLogger)
+            print("-----")
+            print("test4")
+            print(type(h1_getLogger))
+            print("-----")
+            '''
 
         elif method == 'Handler':
             level = request.json['arguments']
@@ -37,7 +62,8 @@ class LoggingServer:
             name = arguments[0]
             level = arguments[1]
             h1_getLogger = logging.Logger(name, level)
-        
+            
+
         elif method == 'FileHandler':
             arguments = request.json['arguments']
             filename = arguments[0]
@@ -220,7 +246,7 @@ class LoggingServer:
 
         elif method == 'Handler.setLevel':
             level = request.json['arguments']
-            h2_handller.setLevel(level)
+            h2_handler.setLevel(level)
 
         elif method == 'Handler.format':
             record = request.json['arguments']
@@ -420,7 +446,7 @@ class LoggingServer:
         elif method == 'Formatter.format':
             record = request.josn['arguments']
             h6_Formatter.format(record)
-            
+
         else:
             pass
 
