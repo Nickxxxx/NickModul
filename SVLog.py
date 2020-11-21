@@ -99,8 +99,8 @@ class SVLog:
         method = 'exception'
         requests.post(BASE, json={'method': method, 'arguments': [message, args, exc_info, kwargs]}, verify=True)
 
+    #problem_kanidat
     def DEBUG(self):
-        #problem_kanidat
         method = 'DEBUG'
         print("Hello")
         requests.post(BASE, json={'method': method}, verify=True)
@@ -297,8 +297,21 @@ class logger(Filterer):
         requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
 
     def addHandler(self, hdlr):
-        method = 'logger.addHandler'
-        requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+        if isinstance(hdlr, FileHandler):
+            print("test1")
+            method = 'logger.addHandler'
+            hdlr = 'FileHandler'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+        elif isinstance(hdlr, StreamHandler):
+            print("Test2")
+            method = 'logger.addHandler'
+            hdlr = 'StreamHandler'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+        else :
+            print("helo")
+            method = 'logger.addHandler'
+            #requests.post(BASE, json={'method': method,'arguments': hdlr}, verify=True)
+
 
     def removeHandler(self, hdlr):
         method = 'logger.removeHandler'

@@ -7,7 +7,7 @@ api = Api(app)
 
 print(dir(logging))
 
-h1_getLogger = None
+#h1_getLogger = None
 h2_handler = None
 h4_FileHandler = None
 h5_StreamHandler = None
@@ -20,23 +20,16 @@ class Logging(Resource):
     def post(self):
         LoggingServer.data(self)
 
-
 class LoggingServer:
 
     def data(self):
         method = request.json['method']
 
-        global h1_getLogger
-        global h2_handler
-        global h4_FileHandler
-        global h5_StreamHandler
-        global h6_Formatter
-        global h7_Filter
-        global h8_Filterer
-        global h9_LoggerAdapter
+        #global h1_getLogger
         if method == 'getLogger':
             name = request.json['arguments']
             h1_getLogger = logging.getLogger(name)
+            return self.h1_getLogger
             '''
             print("test1")
             print(h1_getLogger)
@@ -55,13 +48,17 @@ class LoggingServer:
 
         elif method == 'Handler':
             level = request.json['arguments']
+            h2_handler = None
             h2_handler = logging.Handler(level)
+            return h2_handler
         
         elif method == 'Logger':
             arguments = request.json['arguments']
             name = arguments[0]
             level = arguments[1]
+            h1_getLogger = None
             h1_getLogger = logging.Logger(name, level)
+            return h1_getLogger
             
 
         elif method == 'FileHandler':
@@ -70,11 +67,15 @@ class LoggingServer:
             mode = arguments[1]
             encoding = arguments[2]
             delay = arguments[3]
+            h4_FileHandler = None
             h4_FileHandler = logging.FileHandler(filename, mode, encoding, delay)
+            return h4_FileHandler
 
         elif method == 'StreamHandler':
             stream = request.json['arguments']
+            h5_StreamHandler = None
             h5_StreamHandler = logging.StreamHandler(stream)
+            return h5_StreamHandler
 
         elif method == 'Formatter':
             arguments = request.json['arguments']
@@ -83,13 +84,16 @@ class LoggingServer:
             style = arguments[2]
             validate = arguments[3]
             h6_Formatter = logging.Formatter(fmt, datefmt, style, validate)
+            return h6_Formatter
 
         elif method == 'Filter':
             name = request.json['arguments']
             h7_Filter = logging.Filter(name)
+            return h7_Filter
         
         elif method == 'Filterer':
             h8_Filterer = logging.Filterer()
+            return h8_Filterer
 
         elif method == 'Template':
             template = request.json['arguments']
@@ -300,7 +304,7 @@ class LoggingServer:
             message = arguments[0]
             args = arguments[1]
             kwargs = arguments[2]
-            h1_getLogger.error(message, *args, **kwargs)
+            self.h1_getLogger.error(message, *args, **kwargs)
 
         elif method == 'logger.critical':
             arguments = request.json['arguments']
@@ -320,7 +324,7 @@ class LoggingServer:
         elif method == 'logger.setLevel':
             #def setLevel(self, level):
             level = request.json['arguments']
-            h1_getLogger.level(level)
+            h1_getLogger.setLevel(level)
 
         elif method == 'logger.warn':
             arguments = request.json['arguments']
@@ -357,7 +361,12 @@ class LoggingServer:
 
         elif method == 'logger.addHandler':
             hdlr = request.json['arguments']
-            h1_getLogger.addHandler(hdlr)
+            if hdlr == 'FileHandler':
+                hdlr = h4_FileHandler
+                h1_getLogger.addHandler(hdlr)
+            elif hdlr == 'StreamHandler':
+                hdlr = h5_StreamHandler
+                h1_getLogger.addHandler(hdlr)
 
         elif method == 'logger.removeHandler':
             hdlr = request.json['arguments']
@@ -413,7 +422,6 @@ class LoggingServer:
             h7_Filter.filter(record)
 
         elif method == 'LogRecord.getMessage':
-            #def getMessage(self):
             pass
 
         elif method == 'LoggerAdapter.process':
@@ -447,8 +455,7 @@ class LoggingServer:
             record = request.josn['arguments']
             h6_Formatter.format(record)
 
-        else:
-            pass
+        return h1_getLogger
 
 api.add_resource(Logging, '/')
 

@@ -1,0 +1,21 @@
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:22] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This will get logged to a file
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:22] "[37mPOST / HTTP/1.1[0m" 200 -
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:34] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This will get logged to a file
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:34] "[37mPOST / HTTP/1.1[0m" 200 -
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:38] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This will get logged to a file
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:38] "[37mPOST / HTTP/1.1[0m" 200 -
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:39] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This will get logged to a file
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:39] "[37mPOST / HTTP/1.1[0m" 200 -
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:40] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This will get logged to a file
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:14:40] "[37mPOST / HTTP/1.1[0m" 200 -
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:15:11] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This will get logged to a file
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:15:11] "[37mPOST / HTTP/1.1[0m" 200 -
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:18:08] "[37mPOST / HTTP/1.1[0m" 200 -
+root - WARNING - This is a Warning
+werkzeug - INFO - 127.0.0.1 - - [20/Nov/2020 13:18:08] "[37mPOST / HTTP/1.1[0m" 200 -

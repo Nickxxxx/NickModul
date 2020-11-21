@@ -2,6 +2,27 @@
 import logging
 
 
+# create logger with 'spam_application'
+logger = logging.getLogger('spam_application')
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('spam2.log')
+print(fh)
+#fh.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+#ch.setLevel(logging.ERROR)
+# create formatter and add it to the handlers
+# add the handlers to the logger
+logger.addHandler(fh)
+print(logger)
+logger.addHandler(ch)
+
+logger.info('creating an instance of auxiliary_module.Auxiliary')
+
+print('__________________________________________________')
+
+
 print("test1")
 print("-----")
 print("test2")
@@ -14,7 +35,7 @@ print("test4")
 print(type(h1_getLogger))
 print("-----")
 
-print('_______________________________________________________---')
+print('___________________________________________________')
 
 class LogginNick:
     def data(self, method):
@@ -38,7 +59,7 @@ class LogginNick:
 
 LoggingNick = LogginNick()
 print(type(LoggingNick.data('getLogger')))
-#LoggingNick.data('logger.warning')
+LoggingNick.data('logger.warning')
 
 
 h1 = logging.getLogger("Test")
@@ -91,13 +112,4 @@ z = {'marke': 'BMW', 'art': 'X3', 'leistung': '160PS'}
 
 print(" heeeeelllllllloooooo  ")
 
-if logging.raiseExceptions:
-    print("hello")
-else:
-    print("he")
-
-
-print("_______________________________________")
-
-logging.Logger.warning("This is a warning")
 
