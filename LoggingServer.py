@@ -18,226 +18,126 @@ h9_LoggerAdapter = None
 
 class Logging(Resource):
     def post(self):
-        LoggingServer.data(self)
+        #LoggingServer.data(self)
 
-class LoggingServer:
-
-    def data(self):
         method = request.json['method']
+        arguments = request.json['arguments']
 
-        #global h1_getLogger
         if method == 'getLogger':
-            name = request.json['arguments']
-            h1_getLogger = logging.getLogger(name)
-            return self.h1_getLogger
-            '''
-            print("test1")
-            print(h1_getLogger)
-            print("-----")
-            print("test2")
-            print(type(h1_getLogger))
-            print("-----")
-            h1_getLogger = logging.getLogger(name)
-            print("test3")
-            print(h1_getLogger)
-            print("-----")
-            print("test4")
-            print(type(h1_getLogger))
-            print("-----")
-            '''
+            LoggingServer.getLogger(self, arguments)
 
         elif method == 'Handler':
-            level = request.json['arguments']
-            h2_handler = None
-            h2_handler = logging.Handler(level)
-            return h2_handler
-        
+            LoggingServer.Handler(self, arguments)
+
         elif method == 'Logger':
-            arguments = request.json['arguments']
-            name = arguments[0]
-            level = arguments[1]
-            h1_getLogger = None
-            h1_getLogger = logging.Logger(name, level)
-            return h1_getLogger
-            
+            LoggingServer.Logger(self, arguments)
 
         elif method == 'FileHandler':
-            arguments = request.json['arguments']
-            filename = arguments[0]
-            mode = arguments[1]
-            encoding = arguments[2]
-            delay = arguments[3]
-            h4_FileHandler = None
-            h4_FileHandler = logging.FileHandler(filename, mode, encoding, delay)
-            return h4_FileHandler
+            LoggingServer.FileHandler(self, arguments)
 
         elif method == 'StreamHandler':
-            stream = request.json['arguments']
-            h5_StreamHandler = None
-            h5_StreamHandler = logging.StreamHandler(stream)
-            return h5_StreamHandler
+            LoggingServer.StreamHandler(self, arguments)
 
         elif method == 'Formatter':
-            arguments = request.json['arguments']
-            fmt = arguments[0]
-            datefmt = arguments[1]
-            style = arguments[2]
-            validate = arguments[3]
-            h6_Formatter = logging.Formatter(fmt, datefmt, style, validate)
-            return h6_Formatter
+            LoggingServer.Formatter(self, arguments)
 
         elif method == 'Filter':
-            name = request.json['arguments']
-            h7_Filter = logging.Filter(name)
-            return h7_Filter
-        
+            LoggingServer.Filter(self, arguments)
+
         elif method == 'Filterer':
-            h8_Filterer = logging.Filterer()
-            return h8_Filterer
+            LoggingServer.Filterer(self)
 
         elif method == 'Template':
-            template = request.json['arguments']
-            logging.Template(template)
+            LoggingServer.Template(self, arguments)
 
         elif method == 'warning':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args = arguments[1]
-            kwargs = arguments[2]
-            logging.warning(message, *args, **kwargs)
+            LoggingServer.warning(self, arguments)
 
         elif method == 'debug':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args = arguments[1]
-            kwargs = arguments[2]
-            logging.debug(message, *args, **kwargs)
-        
+            LoggingServer.debug(self, arguments)
+
         elif method == 'error':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args = arguments[1]
-            kwargs = arguments[2]
-            logging.error(message, *args, **kwargs)
-        
+            LoggingServer.error(self, arguments)
+
         elif method == 'critical':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args = arguments[1]
-            kwargs = arguments[2]
-            logging.critical(message, *args, **kwargs)
-        
+            LoggingServer.critical(self, arguments)
+
         elif method == 'info':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args = arguments[1]
-            kwargs = arguments[2]
-            logging.info(message, *args, **kwargs)
-        
+            LoggingServer.info(self, arguments)
+
         elif method == 'log':
-            arguments = request.json['arguments']
-            level = arguments[0]
-            message = arguments[1]
-            args = arguments[2]
-            kwargs = arguments[3]
-            logging.log(level, message, *args, **kwargs)
+            LoggingServer.log(self, arguments)
 
         elif method == 'getLevelName':
-            level = request.json['arguments']
-            logging.getLevelName(level)
+            LoggingServer.getLevelName(self, arguments)
 
         elif method == 'addLevelName':
-            level = request.json['arguments'][0]
-            levelname = request.json['arguments'][1]
-            logging.addLevelName(level, levelname)
+            LoggingServer.addLevelName(self, arguments)
 
         elif method == 'exception':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args  = arguments[1]
-            exc_info = arguments[2]
-            kwargs = arguments[3]
-            logging.exception(message, *args, exc_info, **kwargs)
+            LoggingServer.exception(self, arguments)
 
         elif method == 'disable':
-            level = request.json['arguments']
-            logging.disable(level)
-        
+            LoggingServer.disable(self, arguments)
+
         elif method == 'shutdown':
-            logging.shutdown()
+            LoggingServer.shutdown(self)
 
         elif method == 'captureWarnings':
-            capture = request.json['arguments']
-            logging.captureWarnings(capture=capture)
+            LoggingServer.captureWarnings(self, arguments)
 
         elif method == 'lastResort':
-            logging.lastResort
-        
+            LoggingServer.lastResort(self)
+
         elif method == 'setLogRecordFactory':
-            factory = request.json['arguments']
-            logging.setLogRecordFactory(factory)
-        
+            LoggingServer.setLogRecordFactory(self, arguments)
+
         elif method == 'setLoggerClass':
-            logging.setLoggerClass
-        
+            LoggingServer.setLoggerClass(self)
+
         elif method == 'basicConfig':
-            kwargs = request.json['arguments']
-            print(kwargs)
-            logging.basicConfig(**kwargs)
-        
+            LoggingServer.basicConfig(self, arguments)
+
         elif method == 'makeLogRecord':
-            dict = request.json['arguments']
-            logging.makeLogRecord(dict)
-        
+            LoggingServer.makeLogRecord(self, arguments)
+
         elif method == 'getLogRecordFactory':
-            args = request.json['arguments'][0]
-            kwargs = request.json['arguments'][1]
-            logging.getLogRecordFactory(*args, **kwargs)
+            LoggingServer.getLogRecordFactory(self, arguments)
 
         elif method == 'getLoggerClass':
-            logging.getLoggerClass()
+            LoggingServer.getLoggerClass(self)
 
         elif method == 'LoggerAdapter':
-            logger = request.json['arguments'][0]
-            dict = request.json['arguments'][1]
-            h9_LoggerAdapter = logging.LoggerAdapter(logger, dict)
-        
+            LoggingServer.LoggerAdapter(self, arguments)
+
         elif method == 'warn':
-            message = request.json['arguments'][0]
-            args = request.json['arguments'][0]
-            logging.warn(msg=message, *args)
+            LoggingServer.warn(self, arguments)
 
         elif method == 'DEBUG':
-            print("hello")
-            print(logging.DEBUG)
-            logging.DEBUG
-        
+            LoggingServer.DEBUG(self)
+
         elif method == 'BASIC_FORMAT':
-            print("hello")
-            logging.BASIC_FORMAT
+            LoggingServer.BASIC_FORMAT(self)
 
         elif method == 'LogRecord':
-            arguments = request.json['arguments']
-            logging.LogRecord(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], **(arguments[9]))
+            LoggingServer.LogRecord(self, arguments)
+
+        ###############################################################
 
         elif method == 'Filterer.addFilter':
-            filter = request.json['arguments']
-            h8_Filterer.addFilter(filter)
+            Filterer.addFilter(self, arguments)
 
         elif method == 'Filterer.removeFilter':
-            filter = request.json['arguments']
-            h8_Filterer.removeFilter(filter)
+            Filterer.removeFilter(self, arguments)
 
         elif method == 'Filterer.filter':
-            record = request.json['arguments']
-            h8_Filterer.filter(record)
+            Filterer.filter(self, arguments)
 
         elif method == 'handler.get_name':
-            h2_handler.get_name()
+            Handler.get_name(self)
 
-        elif method == 'Handler.set_name':
-            name = request.json['arguments']
-            h2_handler.set_name(name)
+        elif method == 'Handler.set_name':#
+            Handler.set_name(self, arguments)
 
         elif method == 'Handler.createLock':
             h2_handler.createLock()
@@ -300,11 +200,7 @@ class LoggingServer:
             h1_getLogger.info(message, *args, **kwargs)
 
         elif method == 'logger.error':
-            arguments = request.json['arguments']
-            message = arguments[0]
-            args = arguments[1]
-            kwargs = arguments[2]
-            self.h1_getLogger.error(message, *args, **kwargs)
+            logger.error(self, arguments)
 
         elif method == 'logger.critical':
             arguments = request.json['arguments']
@@ -339,7 +235,7 @@ class LoggingServer:
         elif method == 'logger.isEnabledFor':
             level = request.json['arguments']
             h1_getLogger.level(level)
-        
+
         elif method == 'logger.getEffectiveLevel':
             h1_getLogger.getEffectiveLevel()
 
@@ -394,14 +290,15 @@ class LoggingServer:
             func = arguments[7]
             extra = arguments[8]
             sinfo = arguments[9]
-            h1_getLogger.makeRecord(name, level, fn, lno, msg, args, exc_info, func, extra, sinfo)
+            h1_getLogger.makeRecord(
+                name, level, fn, lno, msg, args, exc_info, func, extra, sinfo)
 
         elif method == 'logger.hasHandlers':
             h1_getLogger.hasHandlers()
 
         elif method == 'StreamHandler.flush':
             h5_StreamHandler.flush()
-        
+
         elif method == 'StreamHandler.emit':
             record = request.json['arguments']
             h5_StreamHandler.emit(record)
@@ -425,37 +322,408 @@ class LoggingServer:
             pass
 
         elif method == 'LoggerAdapter.process':
-            arguments = request.josn['arguments']
+            arguments = request.json['arguments']
             msg = arguments[0]
             kwargs = arguments[1]
             h9_LoggerAdapter.process(msg, **kwargs)
 
         elif method == 'Formatter.formatTime':
-            arguments = request.josn['arguments']
+            arguments = request.json['arguments']
             record = arguments[0]
             datefmt = arguments[1]
             h6_Formatter.formatTime(record, datefmt)
 
         elif method == 'Formatter.formatException':
-            exc_info = request.josn['arguments']
+            exc_info = request.json['arguments']
             h6_Formatter.formatException(exc_info)
 
         elif method == 'Formatter.usesTime':
             h6_Formatter.usesTime()
 
         elif method == 'Formatter.formatMessage':
-            record = request.josn['arguments']
+            record = request.json['arguments']
             h6_Formatter.formatMessage(record)
 
         elif method == 'Formatter.formatStack':
-            stack_info = request.josn['arguments']
+            stack_info = request.json['arguments']
             h6_Formatter.formatStack(stack_info)
 
         elif method == 'Formatter.format':
-            record = request.josn['arguments']
+            record = request.json['arguments']
             h6_Formatter.format(record)
 
+
+class LoggingServer:
+    CRITICAL = 50
+    FATAL = CRITICAL
+    ERROR = 40
+    WARNING = 30
+    WARN = WARNING
+    INFO = 20
+    DEBUG = 10
+    NOTSET = 0
+
+    def getLogger(self, arguments):
+        name = arguments
+        self.h1_getLogger = logging.getLogger(name)
+        return self.h1_getLogger
+
+    def Handler(self, arguments):
+        level = arguments
+        h2_handler = None
+        h2_handler = logging.Handler(level)
+        return h2_handler
+
+    def Logger(self, arguments):
+        name = arguments[0]
+        level = arguments[1]
+        h1_getLogger = None
+        h1_getLogger = logging.Logger(name, level)
         return h1_getLogger
+
+    def FileHandler(self, arguments):
+        filename = arguments[0]
+        mode = arguments[1]
+        encoding = arguments[2]
+        delay = arguments[3]
+        h4_FileHandler = None
+        h4_FileHandler = logging.FileHandler(filename, mode, encoding, delay)
+        return h4_FileHandler
+
+    def StreamHandler(self, arguments):
+        stream = arguments
+        h5_StreamHandler = None
+        h5_StreamHandler = logging.StreamHandler(stream)
+        return h5_StreamHandler
+
+    def Formatter(self, arguments):
+        fmt = arguments[0]
+        datefmt = arguments[1]
+        style = arguments[2]
+        validate = arguments[3]
+        h6_Formatter = logging.Formatter(fmt, datefmt, style, validate)
+        return h6_Formatter
+
+    def Filter(self, arguments):
+        name = arguments
+        h7_Filter = logging.Filter(name)
+        return h7_Filter
+
+    def Filterer(self):
+        h8_Filterer = logging.Filterer()
+        return h8_Filterer
+
+    def Template(self, arguments):
+        template = arguments
+        logging.Template(template)
+
+    def addLevelName(self, arguments):
+        level = arguments[0]
+        levelname = arguments[1]
+        logging.addLevelName(level, levelname)
+
+    def basicConfig(self, arguments):
+        kwargs = arguments
+        print(kwargs)
+        logging.basicConfig(**kwargs)
+
+    def disable(self, arguments):
+        level = arguments
+        logging.disable(level)
+
+    def debug(self, arguments):
+        message = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        logging.debug(message, *args, **kwargs)
+
+    def info(self, arguments):
+        message = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        logging.info(message, *args, **kwargs)
+
+    def warning(self, arguments):
+        message = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        logging.warning(message, *args, **kwargs)
+
+    def error(self, arguments):
+        message = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        logging.error(message, *args, **kwargs)
+
+    def critical(self, arguments):
+        message = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        logging.critical(message, *args, **kwargs)
+
+    def log(self, arguments):
+        level = arguments[0]
+        message = arguments[1]
+        args = arguments[2]
+        kwargs = arguments[3]
+        logging.log(level, message, *args, **kwargs)
+
+    def exception(self, arguments):
+        message = arguments[0]
+        args = arguments[1]
+        exc_info = arguments[2]
+        kwargs = arguments[3]
+        logging.exception(message, *args, exc_info, **kwargs)
+
+    #problem_kanidat
+    def DEBUG(self):
+        print("hello")
+        print(logging.DEBUG)
+        logging.DEBUG
+
+    def shutdown(self):
+        logging.shutdown()
+
+    def getLevelName(self, arguments):
+        level = arguments
+        logging.getLevelName(level)
+
+    def captureWarnings(self, arguments):
+        capture = arguments
+        logging.captureWarnings(capture=capture)
+
+    def lastResort(self):
+        logging.lastResort
+
+    def setLogRecordFactory(self, arguments):
+        factory = arguments
+        logging.setLogRecordFactory(factory)
+
+    def setLoggerClass(self):
+        logging.setLoggerClass
+
+    def makeLogRecord(self, arguments):
+        dict = arguments
+        logging.makeLogRecord(dict)
+
+    def getLogRecordFactory(self, arguments):
+        args = arguments[0]
+        kwargs = arguments[1]
+        logging.getLogRecordFactory(*args, **kwargs)
+
+    def getLoggerClass(self):
+        logging.getLoggerClass()
+
+    def LoggerAdapter(self, arguments):
+        logger = arguments[0]
+        dict = arguments[1]
+        h9_LoggerAdapter = None
+        h9_LoggerAdapter = logging.LoggerAdapter(logger, dict)
+        return h9_LoggerAdapter
+
+    def LogRecord(self, arguments):
+        logging.LogRecord(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4],arguments[5], arguments[6], arguments[7], arguments[8], **(arguments[9]))
+
+    def warn(self, arguments):
+        message = arguments[0]
+        args = arguments[0]
+        logging.warn(msg=message, *args)
+
+    def BASIC_FORMAT(self):
+        print("hello")
+        logging.BASIC_FORMAT
+
+    def raiseExceptions(self):
+        pass
+
+
+
+class logger(LoggingServer):
+
+    def __init__(self, LoggingServer):
+        self.LoggingServer = LoggingServer
+
+    def warning(self, message, *args, **kwargs):
+            pass
+
+    def debug(self, message, *args, **kwargs):
+            pass
+
+    def info(self, message, *args, **kwargs):
+            pass
+
+    def error(self, arguments):
+        print("Test")
+        message = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        self.LoggingServer.h1_getLogger.error(message, *args, **kwargs)
+
+    def critical(self, message, *args, **kwargs):
+            pass
+
+    def log(self, level, message, *args, **kwargs):
+            pass
+
+    def setLevel(self, level):
+            pass
+
+    def warn(self, msg, *args, **kwargs):
+            pass
+
+    def propagate(self):
+            pass
+
+    def isEnabledFor(self, level):
+            pass
+
+    def getEffectiveLevel(self):
+            pass
+
+    def getChild(self, suffix):
+            pass
+
+    def exception(message, *args, exc_info=True, **kwargs):
+            pass
+
+    def callHandlers(self, record):
+            pass
+
+    def addHandler(self, hdlr):
+            if isinstance(hdlr, FileHandler):
+                pass
+
+            elif isinstance(hdlr, StreamHandler):
+                pass
+
+            else:
+                pass
+
+    def removeHandler(self, hdlr):
+            pass
+
+    def findCaller(self, stack_info=False, stacklevel=1):
+            pass
+
+    def handle(self, record):
+            pass
+
+    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None, extra=None, sinfo=None):
+            pass
+
+    def hasHandlers(self):
+            pass
+
+
+class Filterer(object):
+    def addFilter(self, arguments):
+        filter = arguments
+        h8_Filterer.addFilter(filter)
+
+    def removeFilter(self, arguments):
+        filter = arguments
+        h8_Filterer.removeFilter(filter)
+
+    def filter(self, arguments):
+        record = arguments
+        h8_Filterer.filter(record)
+
+
+class Handler(Filterer):
+    def get_name(self):
+        h2_handler.get_name()
+
+    def set_name(self, arguments):
+        name = arguments
+        h2_handler.set_name(name)
+
+    def createLock(self):
+        pass
+
+    def acquire(self):
+        pass
+
+    def release(self):
+        pass
+
+    def setLevel(self, level):
+        pass
+
+    def format(self, record):
+        pass
+
+    def emit(self, record):
+        pass
+
+    def handle(self, record):
+        pass
+
+    def setFormatter(self, fmt):
+        pass
+
+    def flush(self):
+        pass
+
+    def close(self):
+        pass
+
+    def handleError(self, record):
+        pass
+
+
+
+class StreamHandler(Handler):
+    def flush(self):
+        pass
+
+    def emit(self, record):
+        pass
+
+    def setStream(self, stream):
+        pass
+
+
+class FileHandler(StreamHandler):
+    def close(self):
+        pass
+
+    def emit(self, record):
+        pass
+
+
+class Filter(object):
+    def filter(self, record):
+        pass
+
+class LogRecord(object):
+    def getMessage(self):
+        pass
+
+
+class LoggerAdapter(object):
+    def process(self, msg, **kwargs):
+        pass
+
+
+class Formatter(object):
+    def formatTime(self, record, datefmt=None):
+        pass
+
+    def formatException(self, exc_info):
+        pass
+
+    def usesTime(self):
+        pass
+
+    def formatMessage(self, record):
+        pass
+
+    def formatStack(self, stack_info):
+        pass
+
+    def format(self, record):
+        pass
+
 
 api.add_resource(Logging, '/')
 
