@@ -2,6 +2,8 @@
 import logging
 
 
+
+'''
 # create logger with 'spam_application'
 logger = logging.getLogger('spam_application')
 logger.setLevel(logging.DEBUG)
@@ -19,6 +21,7 @@ print(logger)
 logger.addHandler(ch)
 
 logger.info('creating an instance of auxiliary_module.Auxiliary')
+'''
 
 print('__________________________________________________')
 
@@ -70,19 +73,41 @@ print("------------------------------------------")
 
 
 class Car:
-    def Audi(self, *args, **kwargs):
-        print(kwargs)
-        print(args)
-        y = [args, kwargs]
-        print(y)
+    def Audi(self, modell):
+        print(modell)
+        self.price1 = 20
+        return self.price1
+        
+    def motor(self):
+        total_power = self.price1 *10
+        print(f"This is a new M-Modell with a price of {total_power} $")
 
-    def engine(self, Ps):
-        power = Ps
-        return power
+    
 
-    class BMW:
-        def msport(price):
-            print(f"This is a new M-Modell with a price of {price} $")
+class BMW:
+        print("Test1")
+        def msport(self):
+            print("Test2")
+            self.price_total = self.price1 *100
+            print(f"This is a new M-Modell with a toalprice of {self.price_total} $")
+
+
+Car = Car()
+print("----------------------")
+Car.Audi('SomeModel')
+print("----------------------")
+Car.motor()
+print("----------------------")
+BMW = BMW()
+print("----------------------")
+BMW.msport
+print("----------------------")
+
+
+arguments = [{'test':'something'}]
+print(arguments)
+print(arguments[0])
+
 
 '''
 
@@ -90,7 +115,6 @@ class Auto(Car):
     def newengine(self, newPs):
         x = Car.engine + newPs
         print(x)
-
 
 
 

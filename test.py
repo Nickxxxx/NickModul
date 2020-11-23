@@ -40,6 +40,21 @@ def main2(x, y):
         print(solution)
     else:
         logger = NickModul.getLogger('testLogger')
-        logger.error('This is a Warning')
+        logger.warning('This is a Warning')
 
-main2(10,0)
+
+def main3(x, y):
+
+    if y != 0:
+        solution = x/y
+        print(solution)
+    else:
+        fh = NickModul.FileHandler('spam2.log')
+        print(fh)
+        fh.setLevel(10)
+
+
+main3(10,0)
+
+
+
