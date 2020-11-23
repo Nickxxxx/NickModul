@@ -10,6 +10,7 @@ class Logging(Resource):
 
         method = request.json['method']
         arguments = request.json['arguments']
+        print(method)
 
         if method == 'getLogger':
             LoggingServer.getLogger(self, arguments)
@@ -467,7 +468,11 @@ class LoggingServer:
         pass
 
 
-class logger():
+class logger(LoggingServer):
+
+    def __init__(self):
+        self.LoggingServer = self.LoggingServer()
+        self.h1_getLogger = self.LoggingServer.h1_getLogger
 
     def warning(self, arguments):
         message = arguments[0]

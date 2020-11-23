@@ -40,7 +40,7 @@ def main2(x, y):
         print(solution)
     else:
         logger = NickModul.getLogger('testLogger')
-        logger.error('This is a Warning')
+        logger.warning('This is a Warning')
 
 
 def main3(x, y):
@@ -53,8 +53,6 @@ def main3(x, y):
         print(fh)
         fh.setLevel(10)
 
-
-main2(10, 0)
 
 main3(10,0)
 

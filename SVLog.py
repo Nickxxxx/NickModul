@@ -156,7 +156,7 @@ class SVLog:
 
     def BASIC_FORMAT():
         method = 'BASIC_FORMAT'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     '''
     def FileHandler(fname, *args, **kwargs):
@@ -174,70 +174,70 @@ class SVLog:
 class Filterer(object):
     def addFilter(self, filter):
         method = 'Filterer.addFilter'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def removeFilter(self, filter):
         method = 'Filterer.removeFilter'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def filter(self, record):
         method = 'Filterer.filter'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
 
 class Handler(Filterer):
     def get_name(self):
         method = 'handler.get_name'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def set_name(self, name):
         method = 'Handler.set_name'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def createLock(self):
         method = 'Handler.createLock'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def acquire(self):
         method = 'Handler.acquire'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def release(self):
         method = 'Handler.release'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def setLevel(self, level):
         print("Test1")
         method = 'Handler.setLevel'
-        request.post(BASE, json={'method': method, 'arguments': level}, verify=True)
+        requests.post(BASE, json={'method': method, 'arguments': level}, verify=True)
 
     def format(self, record):
         method = 'Handler.format'
-        request.post(BASE, json={'method': method,'arguments': record}, verify=True)
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
 
     def emit(self, record):
         method = 'Handler.emit'
-        request.post(BASE, json={'method': method,'arguments': record}, verify=True)
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
 
     def handle(self, record):
         method = 'Handler.handle'
-        request.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
 
     def setFormatter(self, fmt):
         method = 'Handler.setFormatter'
-        request.post(BASE, json={'method': method,'arguments': fmt}, verify=True)
+        requests.post(BASE, json={'method': method,'arguments': fmt}, verify=True)
 
     def flush(self):
         method = 'Handler.flush'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def close(self):
         method = 'Handler.close'
-        request.post(BASE, json={'method': method}, verify=True)
+        requests.post(BASE, json={'method': method}, verify=True)
 
     def handleError(self, record):
         method = 'Handler.handleError'
-        request.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
 
 
 class logger(Filterer):
@@ -336,6 +336,10 @@ class logger(Filterer):
 
 
 class StreamHandler(Handler):
+
+    def __init__(self):
+        super().__init__()
+
     def flush(self):
         method = 'StreamHandler.flush'
         requests.post(BASE, json={'method': method}, verify=True)
@@ -350,6 +354,9 @@ class StreamHandler(Handler):
 
 
 class FileHandler(StreamHandler):
+    def __init__(self):
+        super().__init__()
+
     def close(self):
         method = 'FileHandler.close'
         requests.post(BASE, json={'method': method}, verify=True)
