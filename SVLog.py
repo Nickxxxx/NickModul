@@ -207,6 +207,7 @@ class Handler(Filterer):
         request.post(BASE, json={'method': method}, verify=True)
 
     def setLevel(self, level):
+        print("Test1")
         method = 'Handler.setLevel'
         request.post(BASE, json={'method': method, 'arguments': level}, verify=True)
 

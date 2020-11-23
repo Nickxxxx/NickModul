@@ -5,20 +5,9 @@ from flask import Flask, request
 app = Flask(__name__)
 api = Api(app)
 
-print(dir(logging))
-
-h1_getLogger = None
-h2_handler = None
-h4_FileHandler = None
-h5_StreamHandler = None
-h6_Formatter = None
-h7_Filter = None
-h8_Filterer = None
-h9_LoggerAdapter = None
-
 class Logging(Resource):
     def post(self):
-        
+
         method = request.json['method']
         arguments = request.json['arguments']
 
@@ -298,6 +287,16 @@ class LoggingServer:
     DEBUG = 10
     NOTSET = 0
 
+    def __init__(self):
+        self.h1_getLogger = None
+        self.h2_handler = None
+        self.h4_FileHandler = None
+        self.h5_StreamHandler = None
+        self.h6_Formatter = None
+        self.h7_Filter = None
+        self.h8_Filterer = None
+        self.h9_LoggerAdapter = None
+
     def getLogger(self, arguments):
         name = arguments
         self.h1_getLogger = logging.getLogger(name)
@@ -305,48 +304,44 @@ class LoggingServer:
 
     def Handler(self, arguments):
         level = arguments
-        h2_handler = None
-        h2_handler = logging.Handler(level)
-        return h2_handler
+        self.h2_handler = logging.Handler(level)
+        return self.h2_handler
 
     def Logger(self, arguments):
         name = arguments[0]
         level = arguments[1]
-        h1_getLogger = None
-        h1_getLogger = logging.Logger(name, level)
-        return h1_getLogger
+        self.h1_getLogger = logging.Logger(name, level)
+        return self.h1_getLogger
 
     def FileHandler(self, arguments):
         filename = arguments[0]
         mode = arguments[1]
         encoding = arguments[2]
         delay = arguments[3]
-        h4_FileHandler = None
-        h4_FileHandler = logging.FileHandler(filename, mode, encoding, delay)
-        return h4_FileHandler
+        self.h4_FileHandler = logging.FileHandler(filename, mode, encoding, delay)
+        return self.h4_FileHandler
 
     def StreamHandler(self, arguments):
         stream = arguments
-        h5_StreamHandler = None
-        h5_StreamHandler = logging.StreamHandler(stream)
-        return h5_StreamHandler
+        self.h5_StreamHandler = logging.StreamHandler(stream)
+        return self.h5_StreamHandler
 
     def Formatter(self, arguments):
         fmt = arguments[0]
         datefmt = arguments[1]
         style = arguments[2]
         validate = arguments[3]
-        h6_Formatter = logging.Formatter(fmt, datefmt, style, validate)
-        return h6_Formatter
+        self.h6_Formatter = logging.Formatter(fmt, datefmt, style, validate)
+        return self.h6_Formatter
 
     def Filter(self, arguments):
         name = arguments
-        h7_Filter = logging.Filter(name)
-        return h7_Filter
+        self.h7_Filter = logging.Filter(name)
+        return self.h7_Filter
 
     def Filterer(self):
-        h8_Filterer = logging.Filterer()
-        return h8_Filterer
+        self.h8_Filterer = logging.Filterer()
+        return self.h8_Filterer
 
     def Template(self, arguments):
         template = arguments
@@ -472,11 +467,7 @@ class LoggingServer:
         pass
 
 
-
-class logger(LoggingServer):
-
-    def __init__(self, LoggingServer):
-        self.LoggingServer = LoggingServer()
+class logger():
 
     def warning(self, arguments):
         message = arguments[0]
@@ -501,7 +492,7 @@ class logger(LoggingServer):
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
-        self.LoggingServer.h1_getLogger.error(message, *args, **kwargs)
+        self.h1_getLogger.error(message, *args, **kwargs)
 
     def critical(self, arguments):
         message = arguments[0]
@@ -554,10 +545,10 @@ class logger(LoggingServer):
     def addHandler(self, arguments):
         hdlr = arguments
         if hdlr == 'FileHandler':
-            hdlr = h4_FileHandler
+            hdlr = self.h4_FileHandler
             self.h1_getLogger.addHandler(hdlr)
         elif hdlr == 'StreamHandler':
-            hdlr = h5_StreamHandler
+            hdlr = self.h5_StreamHandler
             self.h1_getLogger.addHandler(hdlr)
         else:
             pass
@@ -595,15 +586,15 @@ class logger(LoggingServer):
 class Filterer(object):
     def addFilter(self, arguments):
         filter = arguments
-        h8_Filterer.addFilter(filter)
+        self.h8_Filterer.addFilter(filter)
 
     def removeFilter(self, arguments):
         filter = arguments
-        h8_Filterer.removeFilter(filter)
+        self.h8_Filterer.removeFilter(filter)
 
     def filter(self, arguments):
         record = arguments
-        h8_Filterer.filter(record)
+        self.h8_Filterer.filter(record)
 
 
 class Handler(Filterer):
@@ -640,6 +631,7 @@ class Handler(Filterer):
         self.h2_handler.handle(record)
 
     def setFormatter(self, arguments):
+        #arguments are h1_getlogger or h2_handler or h4_FileHandler or h5_StreeamHandler
         fmt = arguments
         self.h2_handler.setFormatter(fmt)
 
@@ -716,7 +708,7 @@ class Formatter(object):
 
     def format(self, arguments):
         record = arguments
-        h6_Formatter.format(record)
+        self.h6_Formatter.format(record)
 
 
 api.add_resource(Logging, '/')
