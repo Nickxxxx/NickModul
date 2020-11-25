@@ -72,15 +72,22 @@ h1.warning("This is log test warning")
 print("------------------------------------------")
 
 
+'''
 class Car:
-    def Audi(self):
-        self.h1_logger = logging.getLogger("TestLogger")
+
+    def decide(self, method):
+        if method == 'testlogger':
+            Car.Audi('TestLog')
+        elif method == 'testwarning':
+            Car.motor('This is a warning')
+
+    def Audi(self, name):
+        self.h1_logger = logging.getLogger(name)
         return self.h1_logger
         
-    def motor(self):
-        self.h1_logger.warning("This is a warning")
+    def motor(self, msg):
+        self.h1_logger.warning(msg)
 
-    
 
 class BMW:
         print("Test1")
@@ -92,15 +99,13 @@ class BMW:
 
 Car = Car()
 print("----------------------")
-Car.Audi()
-print("----------------------")
-Car.motor()
-print("----------------------")
-BMW = BMW()
-print("----------------------")
-BMW.msport
-print("----------------------")
 
+Car.decide('testlogger')
+print("_________________")
+Car.decide('testwarning')
+
+print("----------------------")
+'''
 
 arguments = [{'test':'something'}]
 print(arguments)

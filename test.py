@@ -41,6 +41,7 @@ def main2(x, y):
     else:
         logger = NickModul.getLogger('testLogger')
         logger.warning('This is a Warning')
+        logger.error("This is a legendary error")
 
 
 def main3(x, y):

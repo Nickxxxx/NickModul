@@ -5,27 +5,16 @@ from flask import Flask, request
 app = Flask(__name__)
 api = Api(app)
 
-class Logging(Resource):
-
-    '''
-    def __init__(self):
-        self.Logging = LoggingServer()
-
-    def __getattr__(self, key):
-        print(key)
-
-    '''
-
+class LoggingServer(Resource):
+    
+    @classmethod
     def post(self):
 
         method = request.json['method']
         arguments = request.json['arguments']
-        print(method)
 
         if method == 'getLogger':
-            #self.h1_getLogger = LoggingServer.getLogger(self, arguments)
-            self.h1_test = logging.getLogger(arguments)
-            return self.h1_test
+            LoggingServer.getLogger(self, arguments)
 
         elif method == 'Handler':
             LoggingServer.Handler(self, arguments)
@@ -178,8 +167,7 @@ class Logging(Resource):
         ######################################################
 
         elif method == 'logger.warning':
-            #LoggingServer.loggerwarning(self, arguments)
-            self.h1_test.warning("this is really test")
+            LoggingServer.loggerwarning(self, arguments)
 
         elif method == 'logger.debug':
             LoggingServer.loggerdebug(self, arguments)
@@ -290,21 +278,10 @@ class Logging(Resource):
         elif method == 'Formatter.format':
             LoggingServer.Formatterformat(self, arguments)
 
-class LoggingServer:
-    CRITICAL = 50
-    FATAL = CRITICAL
-    ERROR = 40
-    WARNING = 30
-    WARN = WARNING
-    INFO = 20
-    DEBUG = 10
-    NOTSET = 0
-
     def getLogger(self, arguments):
         name = arguments
-        h1_getLogger = logging.getLogger(name)
-        #print(self.h1_getLogger)
-        return h1_getLogger
+        self.h1_getLogger = logging.getLogger(name)
+        return self.h1_getLogger
 
     def Handler(self, arguments):
         level = arguments
@@ -473,11 +450,10 @@ class LoggingServer:
 ##############################################################
 
     def loggerwarning(self,arguments):
-        print("Test")
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
-        h1_getLogger.warning(message, *args, **kwargs)
+        self.h1_getLogger.warning(message, *args, **kwargs)
 
     def loggerdebug(self, arguments):
         message = arguments[0]
@@ -714,8 +690,7 @@ class LoggingServer:
         record = arguments
         self.h6_Formatter.format(record)
 
-
-api.add_resource(Logging, '/')
+api.add_resource(LoggingServer, '/')
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
