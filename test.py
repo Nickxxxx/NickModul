@@ -54,7 +54,7 @@ def main3(x, y):
         fh.setLevel(10)
 
 
-main3(10,0)
+main2(10,0)
 
 
 

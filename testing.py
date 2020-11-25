@@ -73,14 +73,12 @@ print("------------------------------------------")
 
 
 class Car:
-    def Audi(self, modell):
-        print(modell)
-        self.price1 = 20
-        return self.price1
+    def Audi(self):
+        self.h1_logger = logging.getLogger("TestLogger")
+        return self.h1_logger
         
     def motor(self):
-        total_power = self.price1 *10
-        print(f"This is a new M-Modell with a price of {total_power} $")
+        self.h1_logger.warning("This is a warning")
 
     
 
@@ -94,7 +92,7 @@ class BMW:
 
 Car = Car()
 print("----------------------")
-Car.Audi('SomeModel')
+Car.Audi()
 print("----------------------")
 Car.motor()
 print("----------------------")
