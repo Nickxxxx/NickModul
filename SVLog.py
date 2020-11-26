@@ -157,6 +157,15 @@ class SVLog:
     def BASIC_FORMAT():
         method = 'BASIC_FORMAT'
         requests.post(BASE, json={'method': method}, verify=True)
+<<<<<<< HEAD
+=======
+
+    '''
+    def FileHandler(fname, *args, **kwargs):
+        method = 'BASIC_FORMAT'
+        request.post(BASE, json={'method': method, 'arguments': [fname, args, kwargs]}, verify=True)
+    '''
+>>>>>>> master
 
     def raiseExceptions(self):
         pass
@@ -165,6 +174,7 @@ class SVLog:
 class Filterer(object):
     def addFilter(self, filter):
         method = 'Filterer.addFilter'
+<<<<<<< HEAD
         requests.post(BASE, json={'method': method, 'arguments': filter}, verify=True)
 
     def removeFilter(self, filter):
@@ -174,6 +184,17 @@ class Filterer(object):
     def filter(self, record):
         method = 'Filterer.filter'
         requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+=======
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def removeFilter(self, filter):
+        method = 'Filterer.removeFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def filter(self, record):
+        method = 'Filterer.filter'
+        requests.post(BASE, json={'method': method}, verify=True)
+>>>>>>> master
 
 
 class Handler(object):
@@ -215,6 +236,7 @@ class Handler(object):
         requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
 
     def setFormatter(self, fmt):
+<<<<<<< HEAD
         if isinstance(fmt, Handler):
             method = 'Handler.setFormatter'
             fmt = 'Formatter'
@@ -225,6 +247,10 @@ class Handler(object):
             method = 'Handler.removeHandler'
             requests.post(BASE, json={'method': method, 'arguments': 'Wrong input variable'}, verify=True)
         
+=======
+        method = 'Handler.setFormatter'
+        requests.post(BASE, json={'method': method,'arguments': fmt}, verify=True)
+>>>>>>> master
 
     def flush(self):
         method = 'Handler.flush'
@@ -237,10 +263,13 @@ class Handler(object):
     def handleError(self, record):
         method = 'Handler.handleError'
         requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+<<<<<<< HEAD
     
     def addFilter(self, filter):
         method = 'Handler.addFilter'
         requests.post(BASE, json={'method': method, 'arguments': filter}, verify=True)
+=======
+>>>>>>> master
 
     def removeFilter(self, filter):
         method = 'Handler.removeFilter'
@@ -390,6 +419,14 @@ class logger(object):
 
 class StreamHandler(object):
 
+<<<<<<< HEAD
+=======
+class StreamHandler(Handler):
+
+    def __init__(self):
+        super().__init__()
+
+>>>>>>> master
     def flush(self):
         method = 'StreamHandler.flush'
         requests.post(BASE, json={'method': method}, verify=True)
@@ -477,6 +514,13 @@ class StreamHandler(object):
 
 class FileHandler(object):
 
+<<<<<<< HEAD
+=======
+class FileHandler(StreamHandler):
+    def __init__(self):
+        super().__init__()
+
+>>>>>>> master
     def close(self):
         method = 'FileHandler.close'
         requests.post(BASE, json={'method': method}, verify=True)

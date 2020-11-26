@@ -5,13 +5,21 @@ from flask import Flask, request
 app = Flask(__name__)
 api = Api(app)
 
+<<<<<<< HEAD
 class LoggingServer(Resource):
     
     @classmethod
+=======
+class Logging(Resource):
+>>>>>>> master
     def post(self):
 
         method = request.json['method']
         arguments = request.json['arguments']
+<<<<<<< HEAD
+=======
+        print(method)
+>>>>>>> master
 
         if method == 'getLogger':
             LoggingServer.getLogger(self, arguments)
@@ -115,6 +123,7 @@ class LoggingServer(Resource):
         ###############################################################
 
         elif method == 'Filterer.addFilter':
+<<<<<<< HEAD
             LoggingServer.FiltereraddFilter(self, arguments)
 
         elif method == 'Filterer.removeFilter':
@@ -122,10 +131,20 @@ class LoggingServer(Resource):
 
         elif method == 'Filterer.filter':
             LoggingServer.Filtererfilter(self, arguments)
+=======
+            Filterer.addFilter(self, arguments)
+
+        elif method == 'Filterer.removeFilter':
+            Filterer.removeFilter(self, arguments)
+
+        elif method == 'Filterer.filter':
+            Filterer.filter(self, arguments)
+>>>>>>> master
 
         ##############################################################
 
         elif method == 'handler.get_name':
+<<<<<<< HEAD
             LoggingServer.Handlerget_name(self)
 
         elif method == 'Handler.set_name':
@@ -172,10 +191,50 @@ class LoggingServer(Resource):
 
         elif method == 'Handler.filter':
             LoggingServer.Handlerfilter(self, arguments)
+=======
+            Handler.get_name(self)
+
+        elif method == 'Handler.set_name':
+            Handler.set_name(self, arguments)
+
+        elif method == 'Handler.createLock':
+            Handler.createLock(self)
+
+        elif method == 'Handler.acquire':
+            Handler.acquire(self)
+
+        elif method == 'Handler.release':
+            Handler.release(self)
+
+        elif method == 'Handler.setLevel':
+            Handler.setLevel(self, arguments)
+
+        elif method == 'Handler.format':
+            Handler.format(self, arguments)
+
+        elif method == 'Handler.emit':
+            Handler.emit(self, arguments)
+
+        elif method == 'Handler.handle':
+            Handler.handle(self, arguments)
+
+        elif method == 'Handler.setFormatter':
+            Handler.setFormatter(self, arguments)
+
+        elif method == 'Handler.flush':
+            Handler.flush(self)
+
+        elif method == 'Handler.close':
+            Handler.close(self)
+
+        elif method == 'Handler.handleError':
+            Handler.handleError(self, arguments)
+>>>>>>> master
 
         ######################################################
 
         elif method == 'logger.warning':
+<<<<<<< HEAD
             LoggingServer.loggerwarning(self, arguments)
 
         elif method == 'logger.debug':
@@ -297,10 +356,82 @@ class LoggingServer(Resource):
 
         elif method == 'StreamHandler.filter':
             LoggingServer.StreamHandlerfilter(self, arguments)
+=======
+            logger.warning(self, arguments)
+
+        elif method == 'logger.debug':
+            logger.debug(self, arguments)
+
+        elif method == 'logger.info':
+            logger.info(self, arguments)
+
+        elif method == 'logger.error':
+            logger.error(self, arguments)
+
+        elif method == 'logger.critical':
+            logger.critical(self, arguments)
+
+        elif method == 'logger.log':
+            logger.log(self, arguments)
+
+        elif method == 'logger.setLevel':
+            logger.setLevel(self, arguments)
+
+        elif method == 'logger.warn':
+            logger.warn(self, arguments)
+
+        elif method == 'logger.propagate':
+            logger.propagate(self)
+
+        elif method == 'logger.isEnabledFor':
+            logger.level(self, arguments)
+
+        elif method == 'logger.getEffectiveLevel':
+            logger.getEffectiveLevel(self)
+
+        elif method == 'logger.getChild':
+            logger.getChild(self, arguments)
+
+        elif method == 'logger.exception':
+            logger.exception(self, arguments)
+
+        elif method == 'logger.callHandlers':
+            logger.callHandlers(self, arguments)
+
+        elif method == 'logger.addHandler':
+            logger.addHandler(self, arguments)
+
+        elif method == 'logger.removeHandler':
+            logger.removeHandler(self, arguments)
+
+        elif method == 'logger.findCaller':
+            logger.findCaller(self, arguments)
+
+        elif method == 'logger.handle':
+            logger.handle(self, arguments)
+
+        elif method == 'logger.makeRecord':
+            logger.makeRecord(self, arguments)
+
+        elif method == 'logger.hasHandlers':
+            logger.hasHandlers(self)
+
+        ######################################################
+
+        elif method == 'StreamHandler.flush':
+            StreamHandler.flush(self)
+
+        elif method == 'StreamHandler.emit':
+            StreamHandler.emit(self, arguments)
+
+        elif method == 'StreamHandler.setStream':
+            StreamHandler.setStream(self, arguments)
+>>>>>>> master
 
         ######################################################
 
         elif method == 'FileHandler.close':
+<<<<<<< HEAD
             LoggingServer.FileHandlerclose(self)
 
         elif method == 'FileHandler.emit':
@@ -351,6 +482,16 @@ class LoggingServer(Resource):
         elif method == 'FileHandler.filter':
             LoggingServer.FileHandlerfilter(self, arguments)
 
+=======
+            FileHandler.close(self)
+
+        elif method == 'FileHandler.emit':
+            FileHandler.emit(self, arguments)
+
+        elif method == 'Filter.filter':
+            Filter.filter(self, arguments)
+        
+>>>>>>> master
         #####################################################
 
         elif method == 'LogRecord.getMessage':
@@ -359,11 +500,16 @@ class LoggingServer(Resource):
         #####################################################
 
         elif method == 'LoggerAdapter.process':
+<<<<<<< HEAD
             LoggingServer.LoggerAdapterprocess(self, arguments)
+=======
+            LoggerAdapter.process(self, arguments)
+>>>>>>> master
         
         #####################################################
 
         elif method == 'Formatter.formatTime':
+<<<<<<< HEAD
             LoggingServer.FormatterformatTime(self, arguments)
 
         elif method == 'Formatter.formatException':
@@ -380,6 +526,45 @@ class LoggingServer(Resource):
 
         elif method == 'Formatter.format':
             LoggingServer.Formatterformat(self, arguments)
+=======
+            Formatter.formatTime(self, arguments)
+
+        elif method == 'Formatter.formatException':
+            Formatter.formatException(self, arguments)
+
+        elif method == 'Formatter.usesTime':
+            Formatter.usesTime(self)
+
+        elif method == 'Formatter.formatMessage':
+            Formatter.formatMessage(self, arguments)
+
+        elif method == 'Formatter.formatStack':
+            Formatter.formatStack(self, arguments)
+
+        elif method == 'Formatter.format':
+            Formatter.format(self, arguments)
+
+
+class LoggingServer:
+    CRITICAL = 50
+    FATAL = CRITICAL
+    ERROR = 40
+    WARNING = 30
+    WARN = WARNING
+    INFO = 20
+    DEBUG = 10
+    NOTSET = 0
+
+    def __init__(self):
+        self.h1_getLogger = None
+        self.h2_handler = None
+        self.h4_FileHandler = None
+        self.h5_StreamHandler = None
+        self.h6_Formatter = None
+        self.h7_Filter = None
+        self.h8_Filterer = None
+        self.h9_LoggerAdapter = None
+>>>>>>> master
 
     def getLogger(self, arguments):
         name = arguments
@@ -550,55 +735,96 @@ class LoggingServer(Resource):
     def raiseExceptions(self):
         pass
 
+<<<<<<< HEAD
 ##############################################################
 
     def loggerwarning(self,arguments):
+=======
+
+class logger(LoggingServer):
+
+    def __init__(self):
+        self.LoggingServer = self.LoggingServer()
+        self.h1_getLogger = self.LoggingServer.h1_getLogger
+
+    def warning(self, arguments):
+>>>>>>> master
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
         self.h1_getLogger.warning(message, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggerdebug(self, arguments):
+=======
+    def debug(self, arguments):
+>>>>>>> master
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
         self.h1_getLogger.debug(message, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggerinfo(self, arguments):
+=======
+    def info(self, arguments):
+>>>>>>> master
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
         self.h1_getLogger.info(message, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggererror(self, arguments):
+=======
+    def error(self, arguments):
+        print("Test")
+>>>>>>> master
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
         self.h1_getLogger.error(message, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggercritical(self, arguments):
+=======
+    def critical(self, arguments):
+>>>>>>> master
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
         self.h1_getLogger.critical(message, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggerlog(self, arguments):
+=======
+    def log(self, arguments):
+>>>>>>> master
         level = arguments[0]
         message = arguments[1]
         args = arguments[2]
         kwargs = arguments[3]
         self.h1_getLogger.log(level, message, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggersetLevel(self, arguments):
         level = arguments
         self.h1_getLogger.setLevel(level)
 
     def loggerwarn(self, arguments):
+=======
+    def setLevel(self, arguments):
+        level = arguments
+        self.h1_getLogger.setLevel(level)
+
+    def warn(self, arguments):
+>>>>>>> master
         msg = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
         self.h1_getLogger.warn(msg, *args, **kwargs)
 
+<<<<<<< HEAD
     def loggerpropagate(self):
         self.h1_getLogger.propagate()
 
@@ -614,12 +840,30 @@ class LoggingServer(Resource):
         self.h1_getLogger.getChild(suffix)
 
     def loggerexception(self, arguments):
+=======
+    def propagate(self):
+        self.h1_getLogger.propagate()
+
+    def isEnabledFor(self, arguments):
+        level = arguments
+        self.h1_getLogger.level(level)
+
+    def getEffectiveLevel(self):
+        self.h1_getLogger.getEffectiveLevel()
+
+    def getChild(self, arguments):
+        suffix = arguments
+        self.h1_getLogger.getChild(suffix)
+
+    def exception(self, arguments):
+>>>>>>> master
         message = arguments[0]
         args = arguments[1]
         exc_info = arguments[2]
         kwargs = arguments[3]
         self.h1_getLogger.log(message, *args, exc_info, **kwargs)
 
+<<<<<<< HEAD
     def loggercallHandlers(self, arguments):
         record = arguments
         self.h1_getLogger.callHandlers(record)
@@ -628,10 +872,18 @@ class LoggingServer(Resource):
         if self.h1_getLogger.hasHandlers():
             self.h1_getLogger.handlers.clear()
 
+=======
+    def callHandlers(self, arguments):
+        record = arguments
+        self.h1_getLogger.callHandlers(record)
+
+    def addHandler(self, arguments):
+>>>>>>> master
         hdlr = arguments
         if hdlr == 'FileHandler':
             hdlr = self.h4_FileHandler
             self.h1_getLogger.addHandler(hdlr)
+<<<<<<< HEAD
 
         elif hdlr == 'StreamHandler':
             hdlr = self.h5_StreamHandler
@@ -675,15 +927,36 @@ class LoggingServer(Resource):
 
 
     def loggerfindCaller(self, arguments):
+=======
+        elif hdlr == 'StreamHandler':
+            hdlr = self.h5_StreamHandler
+            self.h1_getLogger.addHandler(hdlr)
+        else:
+            pass
+
+    def removeHandler(self, arguments):
+        hdlr = arguments
+        self.h1_getLogger.removeHandler(hdlr)
+
+    def findCaller(self, arguments):
+>>>>>>> master
         stack_info = arguments[0]
         stacklevel = arguments[1]
         self.h1_getLogger.findCaller(stack_info, stacklevel)
 
+<<<<<<< HEAD
     def loggerhandle(self, arguments):
         record = arguments
         self.h1_getLogger.handle(record)
 
     def loggermakeRecord(self, arguments):
+=======
+    def handle(self, arguments):
+        record = arguments
+        self.h1_getLogger.handle(record)
+
+    def makeRecord(self, arguments):
+>>>>>>> master
         name = arguments[0]
         level = arguments[1]
         fn = arguments[2]
@@ -696,6 +969,7 @@ class LoggingServer(Resource):
         sinfo = arguments[9]
         self.h1_getLogger.makeRecord(name, level, fn, lno, msg, args, exc_info, func, extra, sinfo)
 
+<<<<<<< HEAD
     def loggerhasHandlers(self):
         self.h1_getLogger.hasHandlers()
 
@@ -955,17 +1229,127 @@ class LoggingServer(Resource):
 ##############################################################
 
     def LoggerAdapterprocess(self, arguments):
+=======
+    def hasHandlers(self):
+        self.h1_getLogger.hasHandlers()
+
+
+class Filterer(object):
+    def addFilter(self, arguments):
+        filter = arguments
+        self.h8_Filterer.addFilter(filter)
+
+    def removeFilter(self, arguments):
+        filter = arguments
+        self.h8_Filterer.removeFilter(filter)
+
+    def filter(self, arguments):
+        record = arguments
+        self.h8_Filterer.filter(record)
+
+
+class Handler(Filterer):
+    def get_name(self):
+        self.h2_handler.get_name()
+
+    def set_name(self, arguments):
+        name = arguments
+        self.h2_handler.set_name(name)
+
+    def createLock(self):
+        self.h2_handler.createLock()
+
+    def acquire(self):
+        self.h2_handler.acquire()
+
+    def release(self):
+        self.h2_handler.release()
+
+    def setLevel(self, arguments):
+        level = arguments
+        self.h2_handler.setLevel(level)
+
+    def format(self, arguments):
+        record = arguments
+        self.h2_handler.format(record)
+
+    def emit(self, arguments):
+        record = arguments
+        self.h2_handler.emit(record)
+
+    def handle(self, arguments):
+        record = arguments
+        self.h2_handler.handle(record)
+
+    def setFormatter(self, arguments):
+        #arguments are h1_getlogger or h2_handler or h4_FileHandler or h5_StreeamHandler
+        fmt = arguments
+        self.h2_handler.setFormatter(fmt)
+
+    def flush(self):
+        self.h2_handler.flush()
+
+    def close(self):
+        self.h2_handler.close()
+
+    def handleError(self, arguments):
+        record = arguments
+        self.h2_handler.handleError(record)
+
+
+class StreamHandler(Handler):
+    def flush(self):
+        self.h5_StreamHandler.flush()
+
+    def emit(self, arguments):
+        record = arguments
+        self.h5_StreamHandler.emit(record)
+
+    def setStream(self, arguments):
+        stream = arguments
+        self.h5_StreamHandler.setStream(stream)
+
+
+class FileHandler(StreamHandler):
+    def close(self):
+        self.h4_FileHandler.close()
+
+    def emit(self, arguments):
+        record = arguments
+        self.h4_FileHandler.emit(record)
+
+
+class Filter(object):
+    def filter(self, arguments):
+        record = arguments
+        self.h7_Filter.filter(record)
+
+class LogRecord(object):
+    def getMessage(self):
+        pass
+
+
+class LoggerAdapter(object):
+    def process(self, arguments):
+>>>>>>> master
         msg = arguments[0]
         kwargs = arguments[1]
         self.h9_LoggerAdapter.process(msg, **kwargs)
 
+<<<<<<< HEAD
 ##############################################################
 
     def FormatterformatTime(self, arguments):
+=======
+
+class Formatter(object):
+    def formatTime(self, arguments):
+>>>>>>> master
         record = arguments[0]
         datefmt = arguments[1]
         self.h6_Formatter.formatTime(record, datefmt)
 
+<<<<<<< HEAD
     def FormatterformatException(self, arguments):
         exc_info = arguments
         self.h6_Formatter.formatException(exc_info)
@@ -984,6 +1368,27 @@ class LoggingServer(Resource):
     def Formatterformat(self, arguments):
         record = arguments
         self.h6_Formatter.format(record)
+=======
+    def formatException(self, arguments):
+        exc_info = arguments
+        self.h6_Formatter.formatException(exc_info)
+
+    def usesTime(self):
+        self.h6_Formatter.usesTime()
+
+    def formatMessage(self, arguments):
+        record = arguments
+        self.h6_Formatter.formatMessage(record)
+
+    def formatStack(self, arguments):
+        stack_info = arguments
+        self.h6_Formatter.formatStack(stack_info)
+
+    def format(self, arguments):
+        record = arguments
+        self.h6_Formatter.format(record)
+
+>>>>>>> master
 
 api.add_resource(LoggingServer, '/')
 

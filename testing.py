@@ -74,6 +74,7 @@ print("------------------------------------------")
 
 '''
 class Car:
+<<<<<<< HEAD
 
     def decide(self, method):
         if method == 'testlogger':
@@ -89,6 +90,19 @@ class Car:
         self.h1_logger.warning(msg)
 
 
+=======
+    def Audi(self, modell):
+        print(modell)
+        self.price1 = 20
+        return self.price1
+        
+    def motor(self):
+        total_power = self.price1 *10
+        print(f"This is a new M-Modell with a price of {total_power} $")
+
+    
+
+>>>>>>> master
 class BMW:
         print("Test1")
         def msport(self):
@@ -99,6 +113,7 @@ class BMW:
 
 Car = Car()
 print("----------------------")
+<<<<<<< HEAD
 
 Car.decide('testlogger')
 print("_________________")
@@ -106,6 +121,17 @@ Car.decide('testwarning')
 
 print("----------------------")
 '''
+=======
+Car.Audi('SomeModel')
+print("----------------------")
+Car.motor()
+print("----------------------")
+BMW = BMW()
+print("----------------------")
+BMW.msport
+print("----------------------")
+
+>>>>>>> master
 
 arguments = [{'test':'something'}]
 print(arguments)

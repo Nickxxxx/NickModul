@@ -41,7 +41,10 @@ def main2(x, y):
     else:
         logger = NickModul.getLogger('testLogger')
         logger.warning('This is a Warning')
+<<<<<<< HEAD
         logger.error("This is a legendary error")
+=======
+>>>>>>> master
 
 
 def main3(x, y):
@@ -55,7 +58,11 @@ def main3(x, y):
         fh.setLevel(10)
 
 
+<<<<<<< HEAD
 main1(10,0)
+=======
+main3(10,0)
+>>>>>>> master
 
 
 
