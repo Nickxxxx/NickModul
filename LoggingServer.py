@@ -164,6 +164,15 @@ class LoggingServer(Resource):
         elif method == 'Handler.handleError':
             LoggingServer.HandlerhandleError(self, arguments)
 
+        elif method == 'Handler.addFilter':
+            LoggingServer.HandleraddFilter(self, arguments)
+
+        elif method == 'Handler.removeFilter':
+            LoggingServer.HandlerremoveFilter(self, arguments)
+
+        elif method == 'Handler.filter':
+            LoggingServer.Handlerfilter(self, arguments)
+
         ######################################################
 
         elif method == 'logger.warning':
@@ -226,7 +235,17 @@ class LoggingServer(Resource):
         elif method == 'logger.hasHandlers':
             LoggingServer.loggerhasHandlers(self)
 
+        elif method == 'logger.addFilter':
+            LoggingServer.loggeraddFilter(self, arguments)
+
+        elif method == 'logger.removeFilter':
+            LoggingServer.loggerremoveFilter(self, arguments)
+
+        elif method == 'logger.filter':
+            LoggingServer.loggerfilter(self, arguments)
+
         ######################################################
+
 
         elif method == 'StreamHandler.flush':
             LoggingServer.StreamHandlerflush(self)
@@ -237,6 +256,48 @@ class LoggingServer(Resource):
         elif method == 'StreamHandler.setStream':
             LoggingServer.StreamHandlersetStream(self, arguments)
 
+        elif method == 'StreamHandler.get_name':
+            LoggingServer.StreamHandlerget_name(self)
+
+        elif method == 'StreamHandler.set_name':
+            LoggingServer.StreamHandlerset_name(self, arguments)
+
+        elif method == 'StreamHandler.createLock':
+            LoggingServer.StreamHandlercreateLock(self)
+
+        elif method == 'StreamHandler.acquire':
+            LoggingServer.StreamHandleracquire(self)
+
+        elif method == 'StreamHandler.release':
+            LoggingServer.StreamHandlerrelease(self)
+
+        elif method == 'StreamHandler.setLevel':
+            LoggingServer.StreamHandlerset_name(self, arguments)
+
+        elif method == 'StreamHandler.format':
+            LoggingServer.StreamHandlerformat(self, arguments)
+
+        elif method == 'StreamHandler.handle':
+            LoggingServer.StreamHandlerhandle(self, arguments)
+
+        elif method == 'StreamHandler.setFormatter':
+            LoggingServer.StreamHandlersetFormatter(self, arguments)
+
+        elif method == 'StreamHandler.close':
+            LoggingServer.StreamHandlerclose(self)
+
+        elif method == 'StreamHandler.handleError':
+            LoggingServer.StreamHandlerhandleError(self, arguments)
+
+        elif method == 'StreamHandler.addFilter':
+            LoggingServer.StreamHandleraddFilter(self, arguments)
+
+        elif method == 'StreamHandler.removeFilter':
+            LoggingServer.StreamHandlerremoveFilter(self, arguments)
+
+        elif method == 'StreamHandler.filter':
+            LoggingServer.StreamHandlerfilter(self, arguments)
+
         ######################################################
 
         elif method == 'FileHandler.close':
@@ -245,9 +306,51 @@ class LoggingServer(Resource):
         elif method == 'FileHandler.emit':
             LoggingServer.FileHandleremit(self, arguments)
 
-        elif method == 'Filter.filter':
-            LoggingServer.Filterfilter(self, arguments)
-        
+        elif method == 'FileHandler.flush':
+            LoggingServer.FileHandlerflush(self)
+
+        elif method == 'FileHandler.setStream':
+            LoggingServer.FileHandlersetStream(self, arguments)
+
+        elif method == 'FileHandler.get_name':
+            LoggingServer.FileHandlerget_name(self)
+
+        elif method == 'FileHandler.set_name':
+            LoggingServer.FileHandlerset_name(self, arguments)
+
+        elif method == 'FileHandler.createLock':
+            LoggingServer.FileHandlercreateLock(self)
+
+        elif method == 'FileHandler.acquire':
+            LoggingServer.FileHandleracquire(self)
+
+        elif method == 'FileHandler.release':
+            LoggingServer.FileHandlerrelease(self)
+
+        elif method == 'FileHandler.setLevel':
+            LoggingServer.FileHandlersetLevel(self, arguments)
+
+        elif method == 'FileHandler.format':
+            LoggingServer.FileHandlerformat(self, arguments)
+
+        elif method == 'FileHandler.handle':
+            LoggingServer.FileHandlerhandle(self, arguments)
+
+        elif method == 'FileHandler.setFormatter':
+            LoggingServer.FileHandlersetFormatter(self, arguments)
+
+        elif method == 'FileHandler.handleError':
+            LoggingServer.FileHandlerhandleError(self, arguments)
+
+        elif method == 'FileHandler.addFilter':
+            LoggingServer.FileHandleraddFilter(self, arguments)
+
+        elif method == 'FileHandler.removeFilter':
+            LoggingServer.FileHandlerremoveFilter(self, arguments)
+
+        elif method == 'FileHandler.filter':
+            LoggingServer.FileHandlerfilter(self, arguments)
+
         #####################################################
 
         elif method == 'LogRecord.getMessage':
@@ -522,6 +625,9 @@ class LoggingServer(Resource):
         self.h1_getLogger.callHandlers(record)
 
     def loggeraddHandler(self, arguments):
+        if self.h1_getLogger.hasHandlers():
+            self.h1_getLogger.handlers.clear()
+
         hdlr = arguments
         if hdlr == 'FileHandler':
             hdlr = self.h4_FileHandler
@@ -529,8 +635,6 @@ class LoggingServer(Resource):
         elif hdlr == 'StreamHandler':
             hdlr = self.h5_StreamHandler
             self.h1_getLogger.addHandler(hdlr)
-        else:
-            pass
 
     def loggerremoveHandler(self, arguments):
         hdlr = arguments
@@ -560,6 +664,18 @@ class LoggingServer(Resource):
 
     def loggerhasHandlers(self):
         self.h1_getLogger.hasHandlers()
+
+    def loggeraddFilter(self, arguments):
+        filter = arguments
+        self.h1_getLogger.addfilter(filter)
+
+    def loggerremoveFilter(self, arguments):
+        filter = arguments
+        self.h1_getLogger.removeFilter(filter)
+
+    def loggerfilter(self, arguments):
+        record = arguments
+        self.h1_getLogger.filter(record)
 
 ##############################################################
 
@@ -624,6 +740,18 @@ class LoggingServer(Resource):
         record = arguments
         self.h2_handler.handleError(record)
 
+    def HandleraddFilter(self, arguments):
+        filter = arguments
+        self.h2_handler.addfilter(filter)
+
+    def HandlerremoveFilter(self, arguments):
+        filter = arguments
+        self.h2_handler.removeFilter(filter)
+
+    def Handlerfilter(self, arguments):
+        record = arguments
+        self.h2_handler.filter(record)
+
 ##############################################################
 
     def StreamHandlerflush(self):
@@ -637,6 +765,58 @@ class LoggingServer(Resource):
         stream = arguments
         self.h5_StreamHandler.setStream(stream)
 
+    def StreamHandlerget_name(self):
+        self.h5_StreamHandler.get_name()
+
+    def StreamHandlerset_name(self, arguments):
+        name = arguments
+        self.h5_StreamHandler.set_name(name)
+
+    def StreamHandlercreateLock(self):
+        self.h5_StreamHandler.createLock()
+
+    def StreamHandleracquire(self):
+        self.h5_StreamHandler.acquire()
+
+    def StreamHandlerrelease(self):
+        self.h5_StreamHandler.release()
+
+    def StreamHandlersetLevel(self, arguments):
+        level = arguments
+        self.h5_StreamHandler.setLevel(level)
+
+    def StreamHandlerformat(self, arguments):
+        record = arguments
+        self.h5_StreamHandler.format(record)
+
+    def StreamHandlerhandle(self, arguments):
+        record = arguments
+        self.h5_StreamHandler.handle(record)
+
+    def StreamHandlersetFormatter(self, arguments):
+        fmt = arguments
+        self.h5_StreamHandler.setFormatter(fmt)
+
+    def StreamHandlerclose(self):
+        self.h5_StreamHandler.close()
+
+    def StreamHandlerhandleError(self, arguments):
+        record = arguments
+        self.h5_StreamHandler.handleError(record)
+    
+    def StreamHandleraddFilter(self, arguments):
+        filter = arguments
+        self.h5_StreamHandler.addfilter(filter)
+
+    def StreamHandlerremoveFilter(self, arguments):
+        filter = arguments
+        self.h5_StreamHandler.removeFilter(filter)
+
+    def StreamHandlerfilter(self, arguments):
+        record = arguments
+        self.h5_StreamHandler.filter(record)
+    
+
 ##############################################################
 
     def FileHandlerclose(self):
@@ -645,6 +825,66 @@ class LoggingServer(Resource):
     def FileHandleremit(self, arguments):
         record = arguments
         self.h4_FileHandler.emit(record)
+
+    def FileHandlerflush(self):
+        self.h4_FileHandler.flush()
+
+    def FileHandleremit(self, arguments):
+        record = arguments
+        self.h4_FileHandler.emit(record)
+
+    def FileHandlersetStream(self, arguments):
+        stream = arguments
+        self.h4_FileHandler.setStream(stream)
+
+    def FileHandlerget_name(self):
+        self.h4_FileHandler.get_name()
+
+    def FileHandlerset_name(self, arguments):
+        name = arguments
+        self.h4_FileHandler.set_name(name)
+
+    def FileHandlercreateLock(self):
+        self.h4_FileHandler.createLock()
+
+    def FileHandleracquire(self):
+        self.h4_FileHandler.acquire()
+
+    def FileHandlerrelease(self):
+        self.h4_FileHandler.release()
+
+    def FileHandlersetLevel(self, arguments):
+        level = arguments
+        self.h4_FileHandler.setLevel(level)
+
+    def FileHandlerformat(self, arguments):
+        record = arguments
+        self.h4_FileHandler.format(record)
+
+    def FileHandlerhandle(self, arguments):
+        record = arguments
+        self.h4_FileHandler.handle(record)
+
+    def FileHandlersetFormatter(self, arguments):
+        fmt = arguments
+        self.h4_FileHandler.setFormatter(fmt)
+
+    def FileHandlerhandleError(self, arguments):
+        record = arguments
+        self.h4_FileHandler.handleError(record)
+
+    def FileHandleraddFilter(self, arguments):
+        filter = arguments
+        self.h4_FileHandler.addFilter(filter)
+
+    def FileHandlerremoveFilter(self, arguments):
+        filter = arguments
+        self.h4_FileHandler.removeFilter(filter)
+
+    def FileHandlerfilter(self, arguments):
+        record = arguments
+        self.h4_FileHandler.filter(record)
+    
 
 ##############################################################
 

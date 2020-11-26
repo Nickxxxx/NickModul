@@ -13,10 +13,10 @@ def main1(x, y):
         logger.setLevel(10)
         # create file handler which logs even debug messages
         fh = NickModul.FileHandler('spam.log')
-        #fh.setLevel(10)
+        fh.setLevel(10)
         # create console handler with a higher log level
         ch = NickModul.StreamHandler()
-        #ch.setLevel(40)
+        ch.setLevel(40)
         # create formatter and add it to the handlers 
         #fh.setFormatter(formatter)
         #ch.setFormatter(formatter)
@@ -55,7 +55,7 @@ def main3(x, y):
         fh.setLevel(10)
 
 
-main2(10,0)
+main1(10,0)
 
 
 
