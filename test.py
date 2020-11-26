@@ -42,10 +42,7 @@ def main2(x, y):
     else:
         logger = NickModul.getLogger('testLogger')
         logger.warning('This is a Warning')
-<<<<<<< HEAD
-=======
         logger.error("This is a legendary error")
->>>>>>> Branch2_only_one_class
 
 
 def main3(x, y):
@@ -59,11 +56,7 @@ def main3(x, y):
         fh.setLevel(10)
 
 
-<<<<<<< HEAD
-main3(10,0)
-=======
 main1(10,0)
->>>>>>> Branch2_only_one_class
 
 
 

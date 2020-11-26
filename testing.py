@@ -132,22 +132,6 @@ Car.decide('testwarning')
 
 print("----------------------")
 '''
-=======
->>>>>>> Branch2_only_one_class
-Car.Audi('SomeModel')
-print("----------------------")
-Car.motor()
-print("----------------------")
-BMW = BMW()
-print("----------------------")
-BMW.msport
-print("----------------------")
-
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> Branch2_only_one_class
-
 arguments = [{'test':'something'}]
 print(arguments)
 print(arguments[0])
