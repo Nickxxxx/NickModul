@@ -632,13 +632,47 @@ class LoggingServer(Resource):
         if hdlr == 'FileHandler':
             hdlr = self.h4_FileHandler
             self.h1_getLogger.addHandler(hdlr)
+
         elif hdlr == 'StreamHandler':
             hdlr = self.h5_StreamHandler
             self.h1_getLogger.addHandler(hdlr)
 
+        elif hdlr == 'Handler':
+            hdlr = self.h2_handler
+            self.h1_getLogger.removeHandler(hdlr)
+
+        elif hdlr == 'Formatter':
+            hdlr = self.h6_Formatter
+            self.h1_getLogger.addHandler(hdlr)
+        
+        else:
+            message = hdlr
+            print(message)
+
+
     def loggerremoveHandler(self, arguments):
         hdlr = arguments
-        self.h1_getLogger.removeHandler(hdlr)
+
+        if hdlr == 'FileHandler':
+            hdlr = self.h4_FileHandler
+            self.h1_getLogger.removeHandler(hdlr)
+
+        elif hdlr == 'StreamHandler':
+            hdlr = self.h5_StreamHandler
+            self.h1_getLogger.removeHandler(hdlr)
+        
+        elif hdlr == 'Handler':
+            hdlr = self.h2_handler
+            self.h1_getLogger.removeHandler(hdlr)
+
+        elif hdlr == 'Formatter':
+            hdlr = self.h6_Formatter
+            self.h1_getLogger.removeHandler(hdlr)
+        
+        else:
+            message = hdlr
+            print(message)
+
 
     def loggerfindCaller(self, arguments):
         stack_info = arguments[0]
@@ -726,9 +760,16 @@ class LoggingServer(Resource):
         self.h2_handler.handle(record)
 
     def HandlersetFormatter(self, arguments):
-        #arguments are h1_getlogger or h2_handler or h4_FileHandler or h5_StreeamHandler
         fmt = arguments
-        self.h2_handler.setFormatter(fmt)
+        
+        if fmt == 'Formatter':
+            hdlr = self.h6_Formatter
+            self.h1_getLogger.removeHandler(hdlr)
+
+        else:
+            message = fmt
+            print(message)
+
 
     def Handlerflush(self):
         self.h2_handler.flush()
@@ -795,7 +836,14 @@ class LoggingServer(Resource):
 
     def StreamHandlersetFormatter(self, arguments):
         fmt = arguments
-        self.h5_StreamHandler.setFormatter(fmt)
+        
+        if fmt == 'Formatter':
+            fmt = self.h6_Formatter
+            self.h5_StreamHandler.setFormatter(fmt)
+
+        else:
+            message = fmt
+            print(message)
 
     def StreamHandlerclose(self):
         self.h5_StreamHandler.close()
@@ -867,7 +915,14 @@ class LoggingServer(Resource):
 
     def FileHandlersetFormatter(self, arguments):
         fmt = arguments
-        self.h4_FileHandler.setFormatter(fmt)
+
+        if fmt == 'Formatter':
+            fmt = self.h6_Formatter
+            self.h4_FileHandler.setFormatter(fmt)
+
+        else:
+            message = fmt
+            print(message)
 
     def FileHandlerhandleError(self, arguments):
         record = arguments
