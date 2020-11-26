@@ -12,21 +12,22 @@ def main1(x, y):
         logger = NickModul.getLogger('spam_application')
         logger.setLevel(10)
         # create file handler which logs even debug messages
-        fh = NickModul.FileHandler('spam.log')
-        #fh.setLevel(10)
+        fg = NickModul.FileHandler('Spam2.log')
+        fg.setLevel(10)
         # create console handler with a higher log level
         ch = NickModul.StreamHandler()
-        #ch.setLevel(40)
+        ch.setLevel(10)
         # create formatter and add it to the handlers 
         #fh.setFormatter(formatter)
         #ch.setFormatter(formatter)
         # add the handlers to the logger
-        logger.addHandler(fh)
         logger.addHandler(ch)
+        logger.addHandler(fg)
+        
 
         print("Test_1_")
 
-        logger.info('creating an instance of auxiliary_module.Auxiliary')
+        logger.error('creating an instance of auxiliary_module.Auxiliary')
 
         print("Test_2_")
 
@@ -41,6 +42,10 @@ def main2(x, y):
     else:
         logger = NickModul.getLogger('testLogger')
         logger.warning('This is a Warning')
+<<<<<<< HEAD
+=======
+        logger.error("This is a legendary error")
+>>>>>>> Branch2_only_one_class
 
 
 def main3(x, y):
@@ -54,7 +59,11 @@ def main3(x, y):
         fh.setLevel(10)
 
 
+<<<<<<< HEAD
 main3(10,0)
+=======
+main1(10,0)
+>>>>>>> Branch2_only_one_class
 
 
 

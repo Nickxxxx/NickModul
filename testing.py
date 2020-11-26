@@ -72,7 +72,28 @@ h1.warning("This is log test warning")
 print("------------------------------------------")
 
 
+'''
 class Car:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+    def decide(self, method):
+        if method == 'testlogger':
+            Car.Audi('TestLog')
+        elif method == 'testwarning':
+            Car.motor('This is a warning')
+
+    def Audi(self, name):
+        self.h1_logger = logging.getLogger(name)
+        return self.h1_logger
+        
+    def motor(self, msg):
+        self.h1_logger.warning(msg)
+
+
+=======
+>>>>>>> Branch2_only_one_class
     def Audi(self, modell):
         print(modell)
         self.price1 = 20
@@ -81,9 +102,16 @@ class Car:
     def motor(self):
         total_power = self.price1 *10
         print(f"This is a new M-Modell with a price of {total_power} $")
+<<<<<<< HEAD
 
     
 
+=======
+
+    
+
+>>>>>>> master
+>>>>>>> Branch2_only_one_class
 class BMW:
         print("Test1")
         def msport(self):
@@ -94,6 +122,18 @@ class BMW:
 
 Car = Car()
 print("----------------------")
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+Car.decide('testlogger')
+print("_________________")
+Car.decide('testwarning')
+
+print("----------------------")
+'''
+=======
+>>>>>>> Branch2_only_one_class
 Car.Audi('SomeModel')
 print("----------------------")
 Car.motor()
@@ -103,6 +143,10 @@ print("----------------------")
 BMW.msport
 print("----------------------")
 
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> Branch2_only_one_class
 
 arguments = [{'test':'something'}]
 print(arguments)
