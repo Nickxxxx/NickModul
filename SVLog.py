@@ -157,23 +157,24 @@ class SVLog:
     def BASIC_FORMAT():
         method = 'BASIC_FORMAT'
         requests.post(BASE, json={'method': method}, verify=True)
+<<<<<<< HEAD
 
     '''
     def FileHandler(fname, *args, **kwargs):
         method = 'BASIC_FORMAT'
         request.post(BASE, json={'method': method, 'arguments': [fname, args, kwargs]}, verify=True)
     '''
+=======
+>>>>>>> Branch2_only_one_class
 
     def raiseExceptions(self):
-        pass
-
-    def test(self):
         pass
 
 
 class Filterer(object):
     def addFilter(self, filter):
         method = 'Filterer.addFilter'
+<<<<<<< HEAD
         requests.post(BASE, json={'method': method}, verify=True)
 
     def removeFilter(self, filter):
@@ -183,9 +184,20 @@ class Filterer(object):
     def filter(self, record):
         method = 'Filterer.filter'
         requests.post(BASE, json={'method': method}, verify=True)
+=======
+        requests.post(BASE, json={'method': method, 'arguments': filter}, verify=True)
+
+    def removeFilter(self, filter):
+        method = 'Filterer.removeFilter'
+        requests.post(BASE, json={'method': method, 'arguments': filter}, verify=True)
+
+    def filter(self, record):
+        method = 'Filterer.filter'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+>>>>>>> Branch2_only_one_class
 
 
-class Handler(Filterer):
+class Handler(object):
     def get_name(self):
         method = 'handler.get_name'
         requests.post(BASE, json={'method': method}, verify=True)
@@ -224,8 +236,21 @@ class Handler(Filterer):
         requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
 
     def setFormatter(self, fmt):
+<<<<<<< HEAD
         method = 'Handler.setFormatter'
         requests.post(BASE, json={'method': method,'arguments': fmt}, verify=True)
+=======
+        if isinstance(fmt, Handler):
+            method = 'Handler.setFormatter'
+            fmt = 'Formatter'
+            requests.post(BASE, json={'method': method, 'arguments': fmt}, verify=True)
+
+        else:
+            print("wrong input variable")
+            method = 'Handler.removeHandler'
+            requests.post(BASE, json={'method': method, 'arguments': 'Wrong input variable'}, verify=True)
+        
+>>>>>>> Branch2_only_one_class
 
     def flush(self):
         method = 'Handler.flush'
@@ -238,9 +263,24 @@ class Handler(Filterer):
     def handleError(self, record):
         method = 'Handler.handleError'
         requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+<<<<<<< HEAD
+=======
+    
+    def addFilter(self, filter):
+        method = 'Handler.addFilter'
+        requests.post(BASE, json={'method': method, 'arguments': filter}, verify=True)
+>>>>>>> Branch2_only_one_class
+
+    def removeFilter(self, filter):
+        method = 'Handler.removeFilter'
+        requests.post(BASE, json={'method': method,'arguments': filter}, verify=True)
+
+    def filter(self, record):
+        method = 'Handler.filter'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
 
 
-class logger(Filterer):
+class logger(object):
     def warning(self, message, *args, **kwargs):
         method = 'logger.warning'
         requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
@@ -299,24 +339,53 @@ class logger(Filterer):
 
     def addHandler(self, hdlr):
         if isinstance(hdlr, FileHandler):
-            print("test1")
             method = 'logger.addHandler'
             hdlr = 'FileHandler'
             requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
         elif isinstance(hdlr, StreamHandler):
-            print("Test2")
             method = 'logger.addHandler'
             hdlr = 'StreamHandler'
             requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
-        else :
-            print("helo")
+
+        elif isinstance(hdlr, Formatter):
             method = 'logger.addHandler'
-            #requests.post(BASE, json={'method': method,'arguments': hdlr}, verify=True)
+            hdlr = 'Formatter'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
+        else :
+            print("wrong input variable")
+            method = 'logger.addHandler'
+            requests.post(BASE, json={'method': method,'arguments': 'Wrong input variable'}, verify=True)
 
 
     def removeHandler(self, hdlr):
-        method = 'logger.removeHandler'
-        requests.post(BASE, json={'method': method,'arguments': hdlr}, verify=True)
+
+        if isinstance(hdlr, FileHandler):
+            method = 'logger.removeHandler'
+            hdlr = 'FileHandler'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
+        elif isinstance(hdlr, StreamHandler):
+            method = 'logger.removeHandler'
+            hdlr = 'StreamHandler'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
+        elif isinstance(hdlr, Handler):
+            method = 'logger.removeHandler'
+            hdlr = 'Handler'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
+        elif isinstance(hdlr, Formatter):
+            method = 'logger.removeHandler'
+            hdlr = 'Formatter'
+            requests.post(BASE, json={'method': method, 'arguments': hdlr}, verify=True)
+
+        else :
+            print("wrong input variable")
+            method = 'logger.removeHandler'
+            requests.post(BASE, json={'method': method,'arguments': 'Wrong input variable'}, verify=True)
+
 
     def findCaller(self, stack_info=False, stacklevel=1):
         method = 'logger.findCaller'
@@ -333,13 +402,31 @@ class logger(Filterer):
     def hasHandlers(self):
         method = 'logger.hasHandlers'
         requests.post(BASE, json={'method': method}, verify=True)
+    
+    def addFilter(self, filter):
+        method = 'logger.addFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def removeFilter(self, filter):
+        method = 'logger.removeFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def filter(self, record):
+        method = 'logger.filter'
+        requests.post(BASE, json={'method': method}, verify=True)
 
 
+
+class StreamHandler(object):
+
+<<<<<<< HEAD
 class StreamHandler(Handler):
 
     def __init__(self):
         super().__init__()
 
+=======
+>>>>>>> Branch2_only_one_class
     def flush(self):
         method = 'StreamHandler.flush'
         requests.post(BASE, json={'method': method}, verify=True)
@@ -351,12 +438,89 @@ class StreamHandler(Handler):
     def setStream(self, stream):
         method = 'StreamHandler.setStream'
         requests.post(BASE, json={'method': method, 'arguments': stream}, verify=True)
+    
+    def get_name(self):
+        method = 'StreamHandler.get_name'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def set_name(self, name):
+        method = 'StreamHandler.set_name'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def createLock(self):
+        method = 'StreamHandler.createLock'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def acquire(self):
+        method = 'StreamHandler.acquire'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def release(self):
+        method = 'StreamHandler.release'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def setLevel(self, level):
+        method = 'StreamHandler.setLevel'
+        requests.post(BASE, json={'method': method, 'arguments': level}, verify=True)
+
+    def format(self, record):
+        method = 'StreamHandler.format'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def emit(self, record):
+        method = 'StreamHandler.emit'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def handle(self, record):
+        method = 'StreamHandler.handle'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+
+    def setFormatter(self, fmt):
+        if isinstance(fmt, StreamHandler):
+            method = 'StreamHandler.setFormatter'
+            fmt = 'Formatter'
+            requests.post(BASE, json={'method': method, 'arguments': fmt}, verify=True)
+        
+        else:
+            print("wrong input variable")
+            method = 'StreamHandler.setFormatter'
+            requests.post(BASE, json={'method': method, 'arguments': 'Wrong input variable'}, verify=True)
+            
+
+    def flush(self):
+        method = 'StreamHandler.flush'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def close(self):
+        method = 'StreamHandler.close'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def handleError(self, record):
+        method = 'StreamHandler.handleError'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+    
+    def addFilter(self, filter):
+        method = 'StreamHandler.addFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def removeFilter(self, filter):
+        method = 'StreamHandler.removeFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def filter(self, record):
+        method = 'StreamHandler.filter'
+        requests.post(BASE, json={'method': method}, verify=True)
 
 
+class FileHandler(object):
+
+<<<<<<< HEAD
 class FileHandler(StreamHandler):
     def __init__(self):
         super().__init__()
 
+=======
+>>>>>>> Branch2_only_one_class
     def close(self):
         method = 'FileHandler.close'
         requests.post(BASE, json={'method': method}, verify=True)
@@ -364,6 +528,90 @@ class FileHandler(StreamHandler):
     def emit(self, record):
         method = 'FileHandler.emit'
         requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def flush(self):
+        method = 'FileHandler.flush'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def emit(self, record):
+        method = 'FileHandler.emit'
+        requests.post(BASE, json={'method': method, 'arguments': record}, verify=True)
+
+    def setStream(self, stream):
+        method = 'FileHandler.setStream'
+        requests.post(BASE, json={'method': method, 'arguments': stream}, verify=True)
+
+    def get_name(self):
+        method = 'FileHandler.get_name'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def set_name(self, name):
+        method = 'FileHandler.set_name'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def createLock(self):
+        method = 'FileHandler.createLock'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def acquire(self):
+        method = 'FileHandler.acquire'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def release(self):
+        method = 'FileHandler.release'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def setLevel(self, level):
+        method = 'FileHandler.setLevel'
+        requests.post(BASE, json={'method': method,'arguments': level}, verify=True)
+
+    def format(self, record):
+        method = 'FileHandler.format'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def emit(self, record):
+        method = 'FileHandler.emit'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def handle(self, record):
+        method = 'FileHandler.handle'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def setFormatter(self, fmt):
+        if isinstance(fmt, FileHandler):
+            method = 'FileHandler.setFormatter'
+            fmt = 'Formatter'
+            requests.post(BASE, json={'method': method,'arguments': fmt}, verify=True)
+
+        else:
+            print("wrong input variable")
+            method = 'FileHandler.setFormatter'
+            requests.post(BASE, json={'method': method, 'arguments': 'Wrong input variable'}, verify=True)
+
+
+    def flush(self):
+        method = 'FileHandler.flush'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def close(self):
+        method = 'FileHandler.close'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def handleError(self, record):
+        method = 'FileHandler.handleError'
+        requests.post(BASE, json={'method': method,'arguments': record}, verify=True)
+
+    def addFilter(self, filter):
+        method = 'FileHandler.addFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def removeFilter(self, filter):
+        method = 'FileHandler.removeFilter'
+        requests.post(BASE, json={'method': method}, verify=True)
+
+    def filter(self, record):
+        method = 'FileHandler.filter'
+        requests.post(BASE, json={'method': method}, verify=True)
 
 class Filter(object):
     def filter(self, record):
