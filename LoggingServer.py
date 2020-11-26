@@ -5,8 +5,9 @@ from flask import Flask, request
 app = Flask(__name__)
 api = Api(app)
 
+
 class LoggingServer(Resource):
-    
+
     @classmethod
     def post(self):
 
@@ -246,7 +247,6 @@ class LoggingServer(Resource):
 
         ######################################################
 
-
         elif method == 'StreamHandler.flush':
             LoggingServer.StreamHandlerflush(self)
 
@@ -355,12 +355,12 @@ class LoggingServer(Resource):
 
         elif method == 'LogRecord.getMessage':
             pass
-            
+
         #####################################################
 
         elif method == 'LoggerAdapter.process':
             LoggingServer.LoggerAdapterprocess(self, arguments)
-        
+            
         #####################################################
 
         elif method == 'Formatter.formatTime':
@@ -537,7 +537,8 @@ class LoggingServer(Resource):
         return h9_LoggerAdapter
 
     def LogRecord(self, arguments):
-        logging.LogRecord(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4],arguments[5], arguments[6], arguments[7], arguments[8], **(arguments[9]))
+        logging.LogRecord(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4],
+                          arguments[5], arguments[6], arguments[7], arguments[8], **(arguments[9]))
 
     def warn(self, arguments):
         message = arguments[0]
@@ -553,7 +554,7 @@ class LoggingServer(Resource):
 
 ##############################################################
 
-    def loggerwarning(self,arguments):
+    def loggerwarning(self, arguments):
         message = arguments[0]
         args = arguments[1]
         kwargs = arguments[2]
@@ -625,14 +626,13 @@ class LoggingServer(Resource):
         record = arguments
         self.h1_getLogger.callHandlers(record)
 
-
     def loggeraddHandler(self, arguments):
 
         hdlr = arguments
         if hdlr == 'FileHandler':
             hdlr = self.h4_FileHandler
             self.h1_getLogger.addHandler(hdlr)
-            
+
             '''
             for h in list(self.h1_getLogger.handlers):
                 if type(self.hdlr) == type(h):
@@ -649,7 +649,6 @@ class LoggingServer(Resource):
             hdlr = self.h5_StreamHandler
             self.h1_getLogger.addHandler(hdlr)
 
-
         elif hdlr == 'Handler':
             hdlr = self.h2_handler
             self.h1_getLogger.addHandler(hdlr)
@@ -657,11 +656,10 @@ class LoggingServer(Resource):
         elif hdlr == 'Formatter':
             hdlr = self.h6_Formatter
             self.h1_getLogger.addHandler(hdlr)
-            
+
         else:
             message = hdlr
             print(message)
-
 
         #else:
             #self.h1_getLogger.handlers.clear()
@@ -670,7 +668,6 @@ class LoggingServer(Resource):
 
         #print(self.h1_getLogger.handlers)
         #print(self.h1_getLogger.hasHandlers())
-
 
     def loggerremoveHandler(self, arguments):
         hdlr = arguments
@@ -682,7 +679,7 @@ class LoggingServer(Resource):
         elif hdlr == 'StreamHandler':
             hdlr = self.h5_StreamHandler
             self.h1_getLogger.removeHandler(hdlr)
-        
+
         elif hdlr == 'Handler':
             hdlr = self.h2_handler
             self.h1_getLogger.removeHandler(hdlr)
@@ -690,11 +687,10 @@ class LoggingServer(Resource):
         elif hdlr == 'Formatter':
             hdlr = self.h6_Formatter
             self.h1_getLogger.removeHandler(hdlr)
-        
+
         else:
             message = hdlr
             print(message)
-
 
     def loggerfindCaller(self, arguments):
         stack_info = arguments[0]
@@ -716,7 +712,8 @@ class LoggingServer(Resource):
         func = arguments[7]
         extra = arguments[8]
         sinfo = arguments[9]
-        self.h1_getLogger.makeRecord(name, level, fn, lno, msg, args, exc_info, func, extra, sinfo)
+        self.h1_getLogger.makeRecord(
+            name, level, fn, lno, msg, args, exc_info, func, extra, sinfo)
 
     def loggerhasHandlers(self):
         self.h1_getLogger.hasHandlers()
@@ -783,7 +780,7 @@ class LoggingServer(Resource):
 
     def HandlersetFormatter(self, arguments):
         fmt = arguments
-        
+
         if fmt == 'Formatter':
             hdlr = self.h6_Formatter
             self.h1_getLogger.removeHandler(hdlr)
@@ -791,7 +788,6 @@ class LoggingServer(Resource):
         else:
             message = fmt
             print(message)
-
 
     def Handlerflush(self):
         self.h2_handler.flush()
@@ -858,7 +854,7 @@ class LoggingServer(Resource):
 
     def StreamHandlersetFormatter(self, arguments):
         fmt = arguments
-        
+
         if fmt == 'Formatter':
             fmt = self.h6_Formatter
             self.h5_StreamHandler.setFormatter(fmt)
@@ -873,7 +869,7 @@ class LoggingServer(Resource):
     def StreamHandlerhandleError(self, arguments):
         record = arguments
         self.h5_StreamHandler.handleError(record)
-    
+
     def StreamHandleraddFilter(self, arguments):
         filter = arguments
         self.h5_StreamHandler.addfilter(filter)
@@ -885,7 +881,7 @@ class LoggingServer(Resource):
     def StreamHandlerfilter(self, arguments):
         record = arguments
         self.h5_StreamHandler.filter(record)
-    
+
 
 ##############################################################
 
@@ -961,7 +957,7 @@ class LoggingServer(Resource):
     def FileHandlerfilter(self, arguments):
         record = arguments
         self.h4_FileHandler.filter(record)
-    
+
 
 ##############################################################
 
