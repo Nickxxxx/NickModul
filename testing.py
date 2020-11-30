@@ -1,5 +1,10 @@
 
 import logging
+from logging import log
+
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.warning('This is the second log!')
+
 
 
 

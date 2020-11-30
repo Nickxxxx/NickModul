@@ -9,30 +9,47 @@ def main1(x, y):
     else:
 
         # create logger with 'spam_application'
-        logger = NickModul.getLogger('spam_application')
-        logger.setLevel(10)
-        # create file handler which logs even debug messages
+        logger1 = NickModul.getLogger('spam_application')
+        logger1.setLevel(10)
+
         fg = NickModul.FileHandler('Spam2.log')
         fg.setLevel(10)
-        # create console handler with a higher log level
+
         ch = NickModul.StreamHandler()
         ch.setLevel(10)
-        # create formatter and add it to the handlers 
-        #fh.setFormatter(formatter)
-        #ch.setFormatter(formatter)
-        # add the handlers to the logger
-        logger.addHandler(ch)
-        logger.addHandler(fg)
+
+        logger1.addHandler(ch)
+        logger1.addHandler(fg)
         
 
         print("Test_1_")
 
-        logger.error('creating an instance of auxiliary_module.Auxiliary')
+        logger1.error('creating an instance of auxiliary_module.Auxiliaryfor test1')
 
         print("Test_2_")
 
+
         print("------------------------------------------")
-        
+
+        # create logger with 'spam_application'
+        logger2 = NickModul.getLogger('spam_application2')
+        logger2.setLevel(10)
+
+        fg = NickModul.FileHandler('Spam1.log')
+        fg.setLevel(10)
+
+        ch = NickModul.StreamHandler()
+        ch.setLevel(10)
+
+        logger2.addHandler(ch)
+        logger2.addHandler(fg)
+
+        print("Test_1_")
+
+        logger2.error('creating an instance of auxiliary_module.Auxiliary for Test2')
+
+        print("Test_2_")
+
 
 def main2(x, y):
 
@@ -56,7 +73,16 @@ def main3(x, y):
         fh.setLevel(10)
 
 
-main1(10,0)
+def main4(x, y):
+
+    if y != 0:
+        solution = x/y
+        print(solution)
+    else:
+        NickModul.DEBUG()
+
+
+main4(10,0)
 
 
 

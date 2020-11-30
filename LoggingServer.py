@@ -1,6 +1,7 @@
 import logging
 from flask_restful import Api, Resource
 from flask import Flask, request
+from importlib import reload
 
 app = Flask(__name__)
 api = Api(app)
@@ -8,120 +9,168 @@ api = Api(app)
 
 class LoggingServer(Resource):
 
+    logger = []
+
     @classmethod
     def post(self):
 
-        method = request.json['method']
-        arguments = request.json['arguments']
+        values = request.json
+        method = values['method']
+
+        #arguments = request.json['arguments']
 
         if method == 'getLogger':
+            arguments = values['arguments']
             LoggingServer.getLogger(self, arguments)
 
         elif method == 'Handler':
+            arguments = values['arguments']
             LoggingServer.Handler(self, arguments)
 
         elif method == 'Logger':
+            arguments = values['arguments']
             LoggingServer.Logger(self, arguments)
 
         elif method == 'FileHandler':
+            arguments = values['arguments']
             LoggingServer.FileHandler(self, arguments)
 
         elif method == 'StreamHandler':
+            arguments = values['arguments']
             LoggingServer.StreamHandler(self, arguments)
 
         elif method == 'Formatter':
+            arguments = values['arguments']
             LoggingServer.Formatter(self, arguments)
 
         elif method == 'Filter':
+            arguments = values['arguments']
             LoggingServer.Filter(self, arguments)
 
         elif method == 'Filterer':
             LoggingServer.Filterer(self)
 
         elif method == 'Template':
+            arguments = values['arguments']
             LoggingServer.Template(self, arguments)
 
         elif method == 'warning':
+            arguments = values['arguments']
             LoggingServer.warning(self, arguments)
 
         elif method == 'debug':
+            arguments = values['arguments']
             LoggingServer.debug(self, arguments)
 
         elif method == 'error':
+            arguments = values['arguments']
             LoggingServer.error(self, arguments)
 
         elif method == 'critical':
+            arguments = values['arguments']
             LoggingServer.critical(self, arguments)
 
         elif method == 'info':
+            arguments = values['arguments']
             LoggingServer.info(self, arguments)
 
         elif method == 'log':
+            arguments = values['arguments']
             LoggingServer.log(self, arguments)
 
         elif method == 'getLevelName':
+            arguments = values['arguments']
             LoggingServer.getLevelName(self, arguments)
 
         elif method == 'addLevelName':
+            arguments = values['arguments']
             LoggingServer.addLevelName(self, arguments)
 
         elif method == 'exception':
+            arguments = values['arguments']
             LoggingServer.exception(self, arguments)
 
         elif method == 'disable':
+            arguments = values['arguments']
             LoggingServer.disable(self, arguments)
 
         elif method == 'shutdown':
             LoggingServer.shutdown(self)
 
         elif method == 'captureWarnings':
+            arguments = values['arguments']
             LoggingServer.captureWarnings(self, arguments)
 
         elif method == 'lastResort':
             LoggingServer.lastResort(self)
 
         elif method == 'setLogRecordFactory':
+            arguments = values['arguments']
             LoggingServer.setLogRecordFactory(self, arguments)
 
         elif method == 'setLoggerClass':
             LoggingServer.setLoggerClass(self)
 
         elif method == 'basicConfig':
+            arguments = values['arguments']
             LoggingServer.basicConfig(self, arguments)
 
         elif method == 'makeLogRecord':
+            arguments = values['arguments']
             LoggingServer.makeLogRecord(self, arguments)
 
         elif method == 'getLogRecordFactory':
+            arguments = values['arguments']
             LoggingServer.getLogRecordFactory(self, arguments)
 
         elif method == 'getLoggerClass':
             LoggingServer.getLoggerClass(self)
 
         elif method == 'LoggerAdapter':
+            arguments = values['arguments']
             LoggingServer.LoggerAdapter(self, arguments)
 
         elif method == 'warn':
+            arguments = values['arguments']
             LoggingServer.warn(self, arguments)
 
         elif method == 'DEBUG':
             LoggingServer.DEBUG(self)
 
+        elif method == 'CRITICAL':
+            pass
+
+        elif method == 'FATAL':
+            pass
+
+        elif method == 'ERROR':
+            pass
+
+        elif method == 'WARNING':
+            pass
+
+        elif method == 'INFO':
+            pass
+
         elif method == 'BASIC_FORMAT':
             LoggingServer.BASIC_FORMAT(self)
 
         elif method == 'LogRecord':
+            arguments = values['arguments']
             LoggingServer.LogRecord(self, arguments)
 
         ###############################################################
 
         elif method == 'Filterer.addFilter':
+            arguments = values['arguments']
             LoggingServer.FiltereraddFilter(self, arguments)
 
         elif method == 'Filterer.removeFilter':
+            arguments = values['arguments']
             LoggingServer.FiltererremoveFilter(self, arguments)
 
         elif method == 'Filterer.filter':
+            arguments = values['arguments']
             LoggingServer.Filtererfilter(self, arguments)
 
         ##############################################################
@@ -130,6 +179,7 @@ class LoggingServer(Resource):
             LoggingServer.Handlerget_name(self)
 
         elif method == 'Handler.set_name':
+            arguments = values['arguments']
             LoggingServer.Handlerset_name(self, arguments)
 
         elif method == 'Handler.createLock':
@@ -142,18 +192,23 @@ class LoggingServer(Resource):
             LoggingServer.Handlerrelease(self)
 
         elif method == 'Handler.setLevel':
+            arguments = values['arguments']
             LoggingServer.HandlersetLevel(self, arguments)
 
         elif method == 'Handler.format':
+            arguments = values['arguments']
             LoggingServer.Handlerformat(self, arguments)
 
         elif method == 'Handler.emit':
+            arguments = values['arguments']
             LoggingServer.Handleremit(self, arguments)
 
         elif method == 'Handler.handle':
+            arguments = values['arguments']
             LoggingServer.Handlerhandle(self, arguments)
 
         elif method == 'Handler.setFormatter':
+            arguments = values['arguments']
             LoggingServer.HandlersetFormatter(self, arguments)
 
         elif method == 'Handler.flush':
@@ -163,86 +218,110 @@ class LoggingServer(Resource):
             LoggingServer.Handlerclose(self)
 
         elif method == 'Handler.handleError':
+            arguments = values['arguments']
             LoggingServer.HandlerhandleError(self, arguments)
 
         elif method == 'Handler.addFilter':
+            arguments = values['arguments']
             LoggingServer.HandleraddFilter(self, arguments)
 
         elif method == 'Handler.removeFilter':
+            arguments = values['arguments']
             LoggingServer.HandlerremoveFilter(self, arguments)
 
         elif method == 'Handler.filter':
+            arguments = values['arguments']
             LoggingServer.Handlerfilter(self, arguments)
 
         ######################################################
 
         elif method == 'logger.warning':
+            arguments = values['arguments']
             LoggingServer.loggerwarning(self, arguments)
 
         elif method == 'logger.debug':
+            arguments = values['arguments']
             LoggingServer.loggerdebug(self, arguments)
 
         elif method == 'logger.info':
+            arguments = values['arguments']
             LoggingServer.loggerinfo(self, arguments)
 
         elif method == 'logger.error':
+            arguments = values['arguments']
             LoggingServer.loggererror(self, arguments)
 
         elif method == 'logger.critical':
+            arguments = values['arguments']
             LoggingServer.loggercritical(self, arguments)
 
         elif method == 'logger.log':
+            arguments = values['arguments']
             LoggingServer.loggerlog(self, arguments)
 
         elif method == 'logger.setLevel':
+            arguments = values['arguments']
             LoggingServer.loggersetLevel(self, arguments)
 
         elif method == 'logger.warn':
+            arguments = values['arguments']
             LoggingServer.loggerwarn(self, arguments)
 
         elif method == 'logger.propagate':
             LoggingServer.loggerpropagate(self)
 
         elif method == 'logger.isEnabledFor':
+            arguments = values['arguments']
             LoggingServer.loggerlevel(self, arguments)
 
         elif method == 'logger.getEffectiveLevel':
             LoggingServer.loggergetEffectiveLevel(self)
 
         elif method == 'logger.getChild':
+            arguments = values['arguments']
             LoggingServer.loggergetChild(self, arguments)
 
         elif method == 'logger.exception':
+            arguments = values['arguments']
             LoggingServer.loggerexception(self, arguments)
 
         elif method == 'logger.callHandlers':
+            arguments = values['arguments']
             LoggingServer.loggercallHandlers(self, arguments)
 
         elif method == 'logger.addHandler':
+            arguments = values['arguments']
             LoggingServer.loggeraddHandler(self, arguments)
 
         elif method == 'logger.removeHandler':
+            arguments = values['arguments']
             LoggingServer.loggerremoveHandler(self, arguments)
 
         elif method == 'logger.findCaller':
+            arguments = values['arguments']
             LoggingServer.loggerfindCaller(self, arguments)
 
         elif method == 'logger.handle':
+            arguments = values['arguments']
             LoggingServer.loggerhandle(self, arguments)
 
         elif method == 'logger.makeRecord':
+            arguments = values['arguments']
             LoggingServer.loggermakeRecord(self, arguments)
 
         elif method == 'logger.hasHandlers':
             LoggingServer.loggerhasHandlers(self)
 
         elif method == 'logger.addFilter':
+            arguments = values['arguments']
             LoggingServer.loggeraddFilter(self, arguments)
 
         elif method == 'logger.removeFilter':
+            arguments = values['arguments']
             LoggingServer.loggerremoveFilter(self, arguments)
 
         elif method == 'logger.filter':
+            arguments = values['arguments']
             LoggingServer.loggerfilter(self, arguments)
 
         ######################################################
@@ -251,15 +330,18 @@ class LoggingServer(Resource):
             LoggingServer.StreamHandlerflush(self)
 
         elif method == 'StreamHandler.emit':
+            arguments = values['arguments']
             LoggingServer.StreamHandleremit(self, arguments)
 
         elif method == 'StreamHandler.setStream':
+            arguments = values['arguments']
             LoggingServer.StreamHandlersetStream(self, arguments)
 
         elif method == 'StreamHandler.get_name':
             LoggingServer.StreamHandlerget_name(self)
 
         elif method == 'StreamHandler.set_name':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerset_name(self, arguments)
 
         elif method == 'StreamHandler.createLock':
@@ -272,30 +354,38 @@ class LoggingServer(Resource):
             LoggingServer.StreamHandlerrelease(self)
 
         elif method == 'StreamHandler.setLevel':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerset_name(self, arguments)
 
         elif method == 'StreamHandler.format':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerformat(self, arguments)
 
         elif method == 'StreamHandler.handle':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerhandle(self, arguments)
 
         elif method == 'StreamHandler.setFormatter':
+            arguments = values['arguments']
             LoggingServer.StreamHandlersetFormatter(self, arguments)
 
         elif method == 'StreamHandler.close':
             LoggingServer.StreamHandlerclose(self)
 
         elif method == 'StreamHandler.handleError':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerhandleError(self, arguments)
 
         elif method == 'StreamHandler.addFilter':
+            arguments = values['arguments']
             LoggingServer.StreamHandleraddFilter(self, arguments)
 
         elif method == 'StreamHandler.removeFilter':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerremoveFilter(self, arguments)
 
         elif method == 'StreamHandler.filter':
+            arguments = values['arguments']
             LoggingServer.StreamHandlerfilter(self, arguments)
 
         ######################################################
@@ -304,18 +394,21 @@ class LoggingServer(Resource):
             LoggingServer.FileHandlerclose(self)
 
         elif method == 'FileHandler.emit':
+            arguments = values['arguments']
             LoggingServer.FileHandleremit(self, arguments)
 
         elif method == 'FileHandler.flush':
             LoggingServer.FileHandlerflush(self)
 
         elif method == 'FileHandler.setStream':
+            arguments = values['arguments']
             LoggingServer.FileHandlersetStream(self, arguments)
 
         elif method == 'FileHandler.get_name':
             LoggingServer.FileHandlerget_name(self)
 
         elif method == 'FileHandler.set_name':
+            arguments = values['arguments']
             LoggingServer.FileHandlerset_name(self, arguments)
 
         elif method == 'FileHandler.createLock':
@@ -328,27 +421,35 @@ class LoggingServer(Resource):
             LoggingServer.FileHandlerrelease(self)
 
         elif method == 'FileHandler.setLevel':
+            arguments = values['arguments']
             LoggingServer.FileHandlersetLevel(self, arguments)
 
         elif method == 'FileHandler.format':
+            arguments = values['arguments']
             LoggingServer.FileHandlerformat(self, arguments)
 
         elif method == 'FileHandler.handle':
+            arguments = values['arguments']
             LoggingServer.FileHandlerhandle(self, arguments)
 
         elif method == 'FileHandler.setFormatter':
+            arguments = values['arguments']
             LoggingServer.FileHandlersetFormatter(self, arguments)
 
         elif method == 'FileHandler.handleError':
+            arguments = values['arguments']
             LoggingServer.FileHandlerhandleError(self, arguments)
 
         elif method == 'FileHandler.addFilter':
+            arguments = values['arguments']
             LoggingServer.FileHandleraddFilter(self, arguments)
 
         elif method == 'FileHandler.removeFilter':
+            arguments = values['arguments']
             LoggingServer.FileHandlerremoveFilter(self, arguments)
 
         elif method == 'FileHandler.filter':
+            arguments = values['arguments']
             LoggingServer.FileHandlerfilter(self, arguments)
 
         #####################################################
@@ -359,27 +460,35 @@ class LoggingServer(Resource):
         #####################################################
 
         elif method == 'LoggerAdapter.process':
+            arguments = values['arguments']
             LoggingServer.LoggerAdapterprocess(self, arguments)
             
         #####################################################
 
         elif method == 'Formatter.formatTime':
+            arguments = values['arguments']
             LoggingServer.FormatterformatTime(self, arguments)
 
         elif method == 'Formatter.formatException':
+            arguments = values['arguments']
             LoggingServer.FormatterformatException(self, arguments)
 
         elif method == 'Formatter.usesTime':
             LoggingServer.FormatterusesTime(self)
 
         elif method == 'Formatter.formatMessage':
+            arguments = values['arguments']
             LoggingServer.FormatterformatMessage(self, arguments)
 
         elif method == 'Formatter.formatStack':
+            arguments = values['arguments']
             LoggingServer.FormatterformatStack(self, arguments)
 
         elif method == 'Formatter.format':
+            arguments = values['arguments']
             LoggingServer.Formatterformat(self, arguments)
+
+    ################################################################
 
     def getLogger(self, arguments):
         name = arguments
@@ -440,6 +549,8 @@ class LoggingServer(Resource):
     def basicConfig(self, arguments):
         kwargs = arguments
         print(kwargs)
+        logging.shutdown()
+        reload(logging)
         logging.basicConfig(**kwargs)
 
     def disable(self, arguments):
@@ -490,14 +601,26 @@ class LoggingServer(Resource):
         kwargs = arguments[3]
         logging.exception(message, *args, exc_info, **kwargs)
 
-    #problem_kanidat
     def DEBUG(self):
-        print("hello")
-        print(logging.DEBUG)
         logging.DEBUG
 
+    def WARNING(self):
+        logging.WARNING
+
+    def ERROR(self):
+        logging.ERROR
+
+    def INFO(self):
+        logging.INFO
+
+    def CRITICAL(self):
+        logging.CRITICAL
+
+    def FATAL(self):
+        logging.FATAL
+
     def shutdown(self):
-        logging.shutdown()
+        logging.shutdown
 
     def getLevelName(self, arguments):
         level = arguments

@@ -1,3 +1,4 @@
+from logging import CRITICAL
 import requests
 from requests.api import request
 import pickle
@@ -80,13 +81,43 @@ class SVLog:
 
     def disable(self, level):
         method = 'disable'
-        request.post(BASE, json={'method': method,
-                                 'arguments': level}, verify=True)
+        request.post(BASE, json={'method': method, 'arguments': level}, verify=True)
 
     def debug(self, message, *args, **kwargs):
         method = 'debug'
-        requests.post(BASE, json={'method': method, 'arguments': [
-                      message, args, kwargs]}, verify=True)
+        requests.post(BASE, json={'method': method, 'arguments': [message, args, kwargs]}, verify=True)
+        
+    def DEBUG(self):
+        method = 'DEBUG'
+        print("Hello")
+        requests.post(BASE, json={'method': method}, verify=True)
+        int = 10
+        return int
+
+    def CRITICAL(self):
+        method = 'CRITICAL'
+        int = 50
+        return int
+
+    def FATAL(self):
+        method = 'FATAL'
+        int = CRITICAL
+        return int
+
+    def ERROR(self):
+        method = 'ERROR'
+        int = 40
+        return int
+
+    def WARNING(self):
+        method = 'WARNING'
+        int = 30
+        return 30
+    
+    def INFO(self):
+        method = 'INFO'
+        int = 20
+        return int
 
     def info(self, message, *args, **kwargs):
         method = 'info'
@@ -118,13 +149,6 @@ class SVLog:
         requests.post(BASE, json={'method': method, 'arguments': [
                       message, args, exc_info, kwargs]}, verify=True)
 
-    #problem_kanidat
-    def DEBUG(self):
-        method = 'DEBUG'
-        print("Hello")
-        requests.post(BASE, json={'method': method}, verify=True)
-        int = 10
-        return int
 
     def shutdown(self):
         method = 'shutdown'
