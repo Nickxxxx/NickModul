@@ -2,6 +2,7 @@ import logging
 from flask_restful import Api, Resource
 from flask import Flask, request
 from importlib import reload
+import logging.config
 
 app = Flask(__name__)
 api = Api(app)
@@ -114,6 +115,10 @@ class LoggingServer(Resource):
         elif method == 'basicConfig':
             arguments = values['arguments']
             LoggingServer.basicConfig(self, arguments)
+
+        elif method == 'config.fileConfig':
+            arguments = values['arguments']
+            LoggingServer.configfileConfig(self, arguments)
 
         elif method == 'makeLogRecord':
             arguments = values['arguments']
@@ -552,6 +557,15 @@ class LoggingServer(Resource):
         logging.shutdown()
         reload(logging)
         logging.basicConfig(**kwargs)
+
+    def configfileConfig(self, arguments):
+        logging.shutdown()
+        reload(logging)
+        fname = arguments[0]
+        args = arguments[1]
+        kwargs = arguments[2]
+        logging.config.fileConfig(fname, *args, **kwargs)
+
 
     def disable(self, arguments):
         level = arguments
