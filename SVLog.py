@@ -207,6 +207,13 @@ class SVLog:
 
     def raiseExceptions(self):
         pass
+    
+
+    class config:
+        def fileConfig(fname, *args, **kwargs):
+            method = 'config.fileConfig'
+            requests.post(BASE, json={'method': method,
+                                      'arguments': [fname, args, kwargs]}, verify=True)
 
 
 class Filterer(object):
@@ -378,6 +385,7 @@ class logger(object):
                                   'arguments': record}, verify=True)
 
     def addHandler(self, hdlr):
+
         if isinstance(hdlr, FileHandler):
             method = 'logger.addHandler'
             hdlr = 'FileHandler'
@@ -523,7 +531,7 @@ class StreamHandler(object):
                                   'arguments': record}, verify=True)
 
     def setFormatter(self, fmt):
-        if isinstance(fmt, StreamHandler):
+        if isinstance(fmt, Formatter):
             method = 'StreamHandler.setFormatter'
             fmt = 'Formatter'
             requests.post(BASE, json={'method': method,
